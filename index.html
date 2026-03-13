@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Straight Peptides — Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7f6f2;
+    --surface: #ffffff;
+    --navy: #1e3a5f;
+    --navy-light: #eef2f8;
+    --text: #1a1a1a;
+    --muted: #888880;
+    --accent: #2a6fdb;
+    --border: rgba(0,0,0,0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .nav-logo {
+    width: 30px;
+    height: 30px;
+    background: var(--navy);
+    border-radius: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-logo svg { width: 17px; height: 17px; fill: #fff; }
+
+  .nav-name { font-size: 14px; font-weight: 500; color: var(--navy); }
+  .nav-date { font-size: 12px; color: var(--muted); }
+
+  .hero {
+    text-align: center;
+    padding: 80px 24px 52px;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: fadeUp 0.4s ease 0.05s forwards;
+  }
+
+  .hero-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(36px, 5vw, 52px);
+    color: var(--navy);
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    color: var(--muted);
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .card-wrap {
+    display: flex;
+    justify-content: center;
+    padding: 0 24px 80px;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: fadeUp 0.4s ease 0.18s forwards;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 32px 32px 28px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 440px;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .card:hover {
+    box-shadow: 0 6px 28px rgba(30,58,95,0.12);
+    transform: translateY(-3px);
+  }
+
+  .card-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: var(--navy-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+  }
+
+  .card-icon svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--navy);
+    fill: none;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .card-tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .card-title {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  .card-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .card-link {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: gap 0.2s ease;
+  }
+
+  .card:hover .card-link { gap: 10px; }
+
+  .status-bar {
+    margin: 0 auto;
+    max-width: 440px;
+    padding: 0 24px 40px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: fadeUp 0.4s ease 0.28s forwards;
+  }
+
+  .status-inner {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+  }
+
+  .status-left { display: flex; align-items: center; gap: 8px; color: var(--muted); }
+
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; flex-shrink: 0; }
+
+  .status-right { font-size: 12px; color: var(--accent); cursor: pointer; font-weight: 500; }
+
+  @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#">
+    <div class="nav-logo">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M12 14c-5 0-8 2-8 4v1h16v-1c0-2-3-4-8-4z"/></svg>
+    </div>
+    <span class="nav-name">Straight Peptides</span>
+  </a>
+  <span class="nav-date" id="nav-date"></span>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">Operations · El Paso</div>
+  <h1 class="hero-title">Business Tools</h1>
+  <p class="hero-sub">Your tracker in one place. Access from any device, anywhere.</p>
+</div>
+
+<div class="card-wrap">
+  <a class="card" href="straight_peptides_tracker.html">
+    <div class="card-icon">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    </div>
+    <div class="card-tag">Client Management</div>
+    <div class="card-title">Client Tracker</div>
+    <div class="card-desc">Clients, protocols, inventory, prospects, expenses, and reorder alerts — all in one place.</div>
+    <div class="card-link">Open →</div>
+  </a>
+</div>
+
+<div class="status-bar">
+  <div class="status-inner">
+    <div class="status-left">
+      <div class="dot"></div>
+      <span>Data saves locally in your browser.</span>
+    </div>
+    <span class="status-right">Connect to Supabase →</span>
+  </div>
+</div>
+
+<script>
+  const d = new Date();
+  document.getElementById('nav-date').textContent = d.toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+</script>
+
+</body>
+</html>
