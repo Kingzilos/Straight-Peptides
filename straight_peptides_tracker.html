@@ -1,0 +1,566 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Straight Peptides — Client Tracker</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', sans-serif; background: #f5f4f0; color: #1a1a1a; min-height: 100vh; }
+
+  /* Header */
+  .header { background: #fff; border-bottom: 0.5px solid #ddd; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .logo-area { display: flex; align-items: center; gap: 12px; }
+  .logo-icon { width: 36px; height: 36px; background: #1e3a5f; border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .logo-icon svg { width: 20px; height: 20px; fill: #fff; }
+  .brand-name { font-size: 15px; font-weight: 600; color: #1e3a5f; letter-spacing: 0.02em; }
+  .brand-tag { font-size: 10px; color: #888; letter-spacing: 0.08em; text-transform: uppercase; }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .date-label { font-size: 13px; color: #666; }
+  .btn-export { background: #1e3a5f; color: #fff; border: none; padding: 7px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; font-weight: 500; }
+  .btn-export:hover { background: #2a4f82; }
+
+  /* Stats */
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 20px 24px 0; }
+  .stat-card { background: #fff; border-radius: 10px; border: 0.5px solid #e0e0e0; padding: 16px; }
+  .stat-label { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 6px; }
+  .stat-val { font-size: 28px; font-weight: 700; color: #1e3a5f; line-height: 1; }
+  .stat-sub { font-size: 12px; color: #aaa; margin-top: 4px; }
+  .stat-val.green { color: #1a7f4e; }
+  .stat-val.red { color: #c0392b; }
+  .stat-val.amber { color: #b7770d; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 4px; padding: 18px 24px 0; }
+  .tab { padding: 8px 18px; border-radius: 8px; border: 0.5px solid #ddd; background: #fff; font-size: 13px; font-weight: 500; cursor: pointer; color: #555; transition: all 0.15s; }
+  .tab:hover { background: #f0eeea; }
+  .tab.active { background: #1e3a5f; color: #fff; border-color: #1e3a5f; }
+
+  /* Content */
+  .content { padding: 16px 24px 40px; }
+  .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .section-title { font-size: 16px; font-weight: 600; color: #1e3a5f; }
+  .btn-add { background: transparent; border: 0.5px solid #1e3a5f; color: #1e3a5f; padding: 6px 14px; border-radius: 6px; font-size: 13px; cursor: pointer; font-weight: 500; }
+  .btn-add:hover { background: #eef2f8; }
+
+  /* Table */
+  .table-wrap { background: #fff; border-radius: 10px; border: 0.5px solid #e0e0e0; overflow: hidden; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th { background: #f8f7f4; padding: 10px 14px; text-align: left; font-size: 10px; letter-spacing: 0.07em; text-transform: uppercase; color: #888; font-weight: 600; border-bottom: 0.5px solid #e8e8e8; }
+  tbody tr { border-bottom: 0.5px solid #f0f0f0; }
+  tbody tr:last-child { border-bottom: none; }
+  tbody td { padding: 11px 14px; vertical-align: middle; }
+  tbody tr:hover { background: #fafaf8; }
+  .client-name { font-weight: 600; color: #1e3a5f; }
+  .peptide-tag { display: inline-block; background: #eef2f8; color: #1e3a5f; border-radius: 4px; padding: 2px 7px; font-size: 11px; font-weight: 500; margin: 1px 2px 1px 0; }
+  .prospect-badge { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: 11px; font-weight: 500; }
+  .badge-warm { background: #fff3cd; color: #856404; }
+  .badge-hot { background: #fde8e8; color: #9b1c1c; }
+  .badge-cold { background: #e8f0fe; color: #1a4c8f; }
+  .btn-sm { padding: 4px 10px; border-radius: 5px; font-size: 11px; cursor: pointer; border: 0.5px solid #ddd; background: #fff; color: #333; margin-right: 4px; }
+  .btn-sm:hover { background: #f5f5f5; }
+  .btn-convert { border-color: #1e3a5f; color: #1e3a5f; }
+  .btn-convert:hover { background: #eef2f8; }
+  .low-stock { color: #c0392b; font-weight: 600; }
+  .expense-cat { display: inline-block; background: #f0eeea; color: #555; border-radius: 4px; padding: 2px 8px; font-size: 11px; }
+  .total-row td { font-weight: 600; background: #f8f7f4; color: #1e3a5f; }
+
+  /* Modal */
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 200; align-items: center; justify-content: center; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: #fff; border-radius: 12px; padding: 24px; width: 420px; max-height: 80vh; overflow-y: auto; }
+  .modal h3 { font-size: 16px; font-weight: 600; color: #1e3a5f; margin-bottom: 18px; }
+  .form-group { margin-bottom: 14px; }
+  .form-group label { display: block; font-size: 12px; color: #666; margin-bottom: 4px; font-weight: 500; }
+  .form-group input, .form-group select { width: 100%; padding: 8px 10px; border: 0.5px solid #ddd; border-radius: 6px; font-size: 13px; outline: none; }
+  .form-group input:focus, .form-group select:focus { border-color: #1e3a5f; }
+  .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 18px; }
+  .btn-cancel { padding: 8px 16px; border: 0.5px solid #ddd; border-radius: 6px; background: #fff; cursor: pointer; font-size: 13px; }
+  .btn-save { padding: 8px 16px; background: #1e3a5f; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 500; }
+  .btn-save:hover { background: #2a4f82; }
+  .checkbox-group { display: flex; flex-wrap: wrap; gap: 8px; }
+  .checkbox-group label { display: flex; align-items: center; gap: 5px; font-size: 12px; color: #333; cursor: pointer; }
+
+  /* Inventory alerts */
+  .alert-dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: #c0392b; margin-right: 4px; }
+
+  @media (max-width: 900px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo-area">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M12 14c-5 0-8 2-8 4v1h16v-1c0-2-3-4-8-4z"/></svg>
+    </div>
+    <div>
+      <div class="brand-name">Straight Peptides</div>
+      <div class="brand-tag">True in Health · Unlocking Human Potential</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <span class="date-label">Friday, March 13, 2026</span>
+    <button class="btn-export" onclick="exportCSV()">Export CSV</button>
+  </div>
+</div>
+
+<div class="stats-grid" id="stats-grid"></div>
+
+<div class="tabs" style="margin-top:18px;">
+  <button class="tab active" onclick="switchTab('clients',this)">Clients</button>
+  <button class="tab" onclick="switchTab('prospects',this)">Prospects</button>
+  <button class="tab" onclick="switchTab('inventory',this)">Inventory</button>
+  <button class="tab" onclick="switchTab('expenses',this)">Expenses</button>
+</div>
+
+<div class="content">
+  <div id="tab-clients"></div>
+  <div id="tab-prospects" style="display:none"></div>
+  <div id="tab-inventory" style="display:none"></div>
+  <div id="tab-expenses" style="display:none"></div>
+</div>
+
+<!-- Modals -->
+<div class="modal-overlay" id="modal-client">
+  <div class="modal">
+    <h3 id="modal-client-title">Add Client</h3>
+    <div class="form-group"><label>Name</label><input id="c-name" placeholder="Client name"/></div>
+    <div class="form-group"><label>Peptide(s)</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" value="Tirzepatide"> Tirzepatide</label>
+        <label><input type="checkbox" value="Tesamorelin"> Tesamorelin</label>
+        <label><input type="checkbox" value="BPC-157"> BPC-157</label>
+        <label><input type="checkbox" value="HCG"> HCG</label>
+      </div>
+    </div>
+    <div class="form-group"><label>Dosage (mg)</label><input id="c-dose" placeholder="e.g. 2.5"/></div>
+    <div class="form-group"><label>Purchase Date</label><input type="date" id="c-date"/></div>
+    <div class="form-group"><label>Reorder (Days)</label><input id="c-reorder" type="number" placeholder="e.g. 30"/></div>
+    <div class="form-group"><label>Amount Paid ($)</label><input id="c-amount" type="number" placeholder="e.g. 165"/></div>
+    <div class="form-group"><label>Notes</label><input id="c-notes" placeholder="Optional notes"/></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('modal-client')">Cancel</button>
+      <button class="btn-save" onclick="saveClient()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-prospect">
+  <div class="modal">
+    <h3>Add Prospect</h3>
+    <div class="form-group"><label>Name</label><input id="p-name" placeholder="Prospect name"/></div>
+    <div class="form-group"><label>Status</label>
+      <select id="p-status"><option value="Warm">Warm</option><option value="Hot">Hot</option><option value="Cold">Cold</option></select>
+    </div>
+    <div class="form-group"><label>Interest</label><input id="p-interest" placeholder="e.g. Tirzepatide, weight loss"/></div>
+    <div class="form-group"><label>Follow-up Date</label><input type="date" id="p-followup"/></div>
+    <div class="form-group"><label>Notes</label><input id="p-notes" placeholder="Optional notes"/></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('modal-prospect')">Cancel</button>
+      <button class="btn-save" onclick="saveProspect()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-inventory">
+  <div class="modal">
+    <h3>Add Inventory Item</h3>
+    <div class="form-group"><label>Product Name</label><input id="i-name" placeholder="e.g. Tirzepatide 10mg/vial"/></div>
+    <div class="form-group"><label>Category</label>
+      <select id="i-cat"><option>Peptide</option><option>Supplies</option></select>
+    </div>
+    <div class="form-group"><label>Qty on Hand</label><input type="number" id="i-qty" placeholder="0"/></div>
+    <div class="form-group"><label>Unit Cost ($)</label><input type="number" id="i-cost" placeholder="0.00" step="0.01"/></div>
+    <div class="form-group"><label>Reorder At (Qty)</label><input type="number" id="i-reorder" placeholder="0"/></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('modal-inventory')">Cancel</button>
+      <button class="btn-save" onclick="saveInventory()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-expense">
+  <div class="modal">
+    <h3>Add Expense</h3>
+    <div class="form-group"><label>Date</label><input type="date" id="e-date"/></div>
+    <div class="form-group"><label>Category</label>
+      <select id="e-cat"><option>Peptide Restocking</option><option>Shipping</option><option>Supplies</option><option>Other</option></select>
+    </div>
+    <div class="form-group"><label>Description</label><input id="e-desc" placeholder="Description"/></div>
+    <div class="form-group"><label>Amount ($)</label><input type="number" id="e-amount" placeholder="0.00" step="0.01"/></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal('modal-expense')">Cancel</button>
+      <button class="btn-save" onclick="saveExpense()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+let clients = [
+  {id:1, name:"Joe",         peptides:["Tirzepatide"],                       dosage:"2.5",    date:"2026-02-25", reorder:42,  amount:165, notes:""},
+  {id:2, name:"Jonathon",    peptides:["Tirzepatide","Tesamorelin"],          dosage:"2.5",    date:"2026-03-09", reorder:30,  amount:165, notes:""},
+  {id:3, name:"Chino",       peptides:["Tesamorelin"],                        dosage:"0.5",    date:"2026-03-09", reorder:30,  amount:165, notes:""},
+  {id:4, name:"Bri",         peptides:["Tirzepatide"],                        dosage:"2.5",    date:"2026-03-16", reorder:30,  amount:165, notes:""},
+  {id:5, name:"Rina",        peptides:["Tirzepatide"],                        dosage:"2.5",    date:"2026-02-05", reorder:120, amount:165, notes:""},
+  {id:6, name:"Stephanie",   peptides:["Tirzepatide"],                        dosage:"2.5",    date:"2026-03-10", reorder:30,  amount:165, notes:""},
+  {id:7, name:"Bree (ABQ)",  peptides:["Tirzepatide"],                        dosage:"2.5",    date:"2026-03-05", reorder:60,  amount:165, notes:""},
+  {id:8, name:"Dale",        peptides:[],                                     dosage:"2mg",    date:"2026-02-27", reorder:270, amount:165, notes:""},
+  {id:9, name:"Abraham",     peptides:[],                                     dosage:"2.5mg",  date:"2026-03-04", reorder:60,  amount:165, notes:""},
+  {id:10,name:"Abraham",     peptides:["Tirzepatide","Tesamorelin","BPC-157"],dosage:"2.5",    date:"2026-03-04", reorder:30,  amount:165, notes:"Stacked protocol"},
+  {id:11,name:"Escobar",     peptides:["Tirzepatide","Tesamorelin"],          dosage:"2.5mg",  date:"2026-03-09", reorder:60,  amount:165, notes:""},
+];
+
+let prospects = [
+  {id:1, name:"Ziggy",  status:"Warm", interest:"", followup:"", notes:""},
+  {id:2, name:"Arabee", status:"Warm", interest:"", followup:"", notes:""},
+  {id:3, name:"Malik",  status:"Warm", interest:"", followup:"", notes:""},
+  {id:4, name:"Jazmin", status:"Warm", interest:"", followup:"", notes:""},
+];
+
+let inventory = [
+  {id:1, name:"Tirzepatide 10mg/vial",   category:"Peptide",   qty:15,  cost:10.00, reorder:4},
+  {id:2, name:"Tesamorelin 10mg/vial",   category:"Peptide",   qty:6,   cost:8.00,  reorder:2},
+  {id:3, name:"BPC-157 10mg/vial",       category:"Peptide",   qty:25,  cost:5.00,  reorder:2},
+  {id:4, name:"Bacteriostatic Water",    category:"Supplies",  qty:10,  cost:4.50,  reorder:3},
+  {id:5, name:"Insulin Syringes 28g",   category:"Supplies",  qty:350, cost:0.30,  reorder:50},
+];
+
+let expenses = [
+  {id:1, date:"2026-03-02", category:"Peptide Restocking", desc:"Tirz,HCG,Bac Water.", amount:378.00},
+  {id:2, date:"2026-02-26", category:"Shipping",           desc:"shipping to ABQ",      amount:12.04},
+  {id:3, date:"2026-02-22", category:"Supplies",           desc:"Alcohol Wipes",         amount:8.00},
+  {id:4, date:"2026-02-07", category:"Supplies",           desc:"Needles",               amount:40.00},
+  {id:5, date:"2025-11-20", category:"Peptide Restocking", desc:"Peptides",              amount:68.16},
+  {id:6, date:"2025-09-17", category:"Shipping",           desc:"Peptides",              amount:3.17},
+];
+
+let nextClientId = 12, nextProspectId = 5, nextInvId = 6, nextExpId = 7;
+let activeTab = 'clients';
+let editClientId = null;
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function estReorder(dateStr, days) {
+  const d = new Date(dateStr);
+  d.setDate(d.getDate() + parseInt(days));
+  return d.toLocaleDateString('en-US', {month:'2-digit', day:'2-digit', year:'2-digit'});
+}
+function totalRevenue() { return clients.reduce((a,c) => a + (c.amount||0), 0); }
+function totalExpenses() { return expenses.reduce((a,e) => a + e.amount, 0); }
+function avgPerClient() { return clients.length ? Math.round(totalRevenue() / clients.length) : 0; }
+function stackedCount() { return clients.filter(c => c.peptides.length > 1).length; }
+function lowStockCount() { return inventory.filter(i => i.qty <= i.reorder).length; }
+function invValue() { return inventory.reduce((a,i) => a + i.qty * i.cost, 0); }
+function peptideSkus() { return inventory.filter(i => i.category === 'Peptide').length; }
+function supplyItems() { return inventory.filter(i => i.category === 'Supplies').length; }
+function thisMonthExp() {
+  return expenses.filter(e => e.date.startsWith('2026-03')).reduce((a,e) => a + e.amount, 0);
+}
+function daysUntilReorder(client) {
+  const d = new Date(client.date);
+  d.setDate(d.getDate() + parseInt(client.reorder));
+  return Math.ceil((d - new Date()) / 86400000);
+}
+function dueIn7() { return clients.filter(c => { const d = daysUntilReorder(c); return d >= 0 && d <= 7; }).length; }
+function overdue()  { return clients.filter(c => daysUntilReorder(c) < 0).length; }
+
+// ── STATS ─────────────────────────────────────────────────────────────────────
+function renderStats() {
+  const rev = totalRevenue(), exp = totalExpenses();
+  const s = [
+    {label:"Active Clients",    val:clients.length,                    sub:"On protocol"},
+    {label:"Prospect Pipeline", val:prospects.length,                  sub:"Potential clients"},
+    {label:"Total Revenue",     val:"$"+rev.toLocaleString(),          sub:"All-time collected", cls:"green"},
+    {label:"Avg per Client",    val:"$"+avgPerClient(),                sub:"Revenue average"},
+    {label:"Due to Reorder (7d)",val:dueIn7(),                         sub:"Reach out soon"},
+    {label:"Overdue Reorders",  val:overdue(),                         sub:"Follow up now",  cls:overdue()>0?"red":""},
+    {label:"Stacked Protocols", val:stackedCount(),                    sub:"Multi-peptide clients"},
+    {label:"Net Profit",        val:"$"+(rev-exp).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}), sub:"Revenue − expenses", cls:"green"},
+  ];
+  document.getElementById('stats-grid').innerHTML = s.map(x =>
+    `<div class="stat-card">
+      <div class="stat-label">${x.label}</div>
+      <div class="stat-val ${x.cls||''}">${x.val}</div>
+      <div class="stat-sub">${x.sub}</div>
+    </div>`
+  ).join('');
+}
+
+// ── TAB SWITCH ────────────────────────────────────────────────────────────────
+function switchTab(tab, btn) {
+  activeTab = tab;
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  ['clients','prospects','inventory','expenses'].forEach(t => {
+    document.getElementById('tab-'+t).style.display = t === tab ? '' : 'none';
+  });
+  render();
+}
+
+// ── RENDER CLIENTS ─────────────────────────────────────────────────────────────
+function renderClients() {
+  const rows = clients.map((c,i) => {
+    const tags = c.peptides.length ? c.peptides.map(p => `<span class="peptide-tag">${p}</span>`).join('') : '<span style="color:#aaa">—</span>';
+    const est = c.date && c.reorder ? estReorder(c.date, c.reorder) : '—';
+    const days = daysUntilReorder(c);
+    const daysStr = days < 0 ? `<span class="low-stock">${days}d overdue</span>` : days <= 7 ? `<span style="color:#b7770d;font-weight:600">${days}d</span>` : `${days}d`;
+    return `<tr>
+      <td>${i+1}</td>
+      <td class="client-name">${c.name}</td>
+      <td>${tags}</td>
+      <td>${c.dosage || '—'}</td>
+      <td>${c.date ? new Date(c.date+'T00:00:00').toLocaleDateString('en-US') : '—'}</td>
+      <td>${c.reorder || '—'}</td>
+      <td>${est}</td>
+      <td>$${(c.amount||0).toLocaleString()}</td>
+      <td>
+        <button class="btn-sm" onclick="editClient(${c.id})">Edit</button>
+        <button class="btn-sm" style="color:#c0392b;border-color:#c0392b;" onclick="deleteClient(${c.id})">Delete</button>
+      </td>
+    </tr>`;
+  }).join('');
+  document.getElementById('tab-clients').innerHTML = `
+    <div class="section-header">
+      <span class="section-title">Active Clients</span>
+      <button class="btn-add" onclick="openAddClient()">+ Add Client</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Name</th><th>Peptide(s)</th><th>Dosage</th><th>Purchase Date</th><th>Reorder (Days)</th><th>Est. Reorder</th><th>Amount</th><th>Actions</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
+// ── RENDER PROSPECTS ──────────────────────────────────────────────────────────
+function renderProspects() {
+  const rows = prospects.map((p,i) => {
+    const badgeCls = p.status === 'Hot' ? 'badge-hot' : p.status === 'Cold' ? 'badge-cold' : 'badge-warm';
+    return `<tr>
+      <td>${i+1}</td>
+      <td class="client-name">${p.name}</td>
+      <td><span class="prospect-badge ${badgeCls}">${p.status}</span></td>
+      <td>${p.interest || '<span style="color:#aaa">No interest tagged</span>'}</td>
+      <td>${p.followup ? new Date(p.followup+'T00:00:00').toLocaleDateString('en-US') : '<span style="color:#aaa">No follow-up set</span>'}</td>
+      <td>${p.notes || '—'}</td>
+      <td>
+        <button class="btn-sm" onclick="editProspect(${p.id})">Edit</button>
+        <button class="btn-sm btn-convert" onclick="convertToClient(${p.id})">Convert</button>
+        <button class="btn-sm" style="color:#c0392b;border-color:#c0392b;" onclick="deleteProspect(${p.id})">Delete</button>
+      </td>
+    </tr>`;
+  }).join('');
+  document.getElementById('tab-prospects').innerHTML = `
+    <div class="section-header">
+      <span class="section-title">Prospect Pipeline</span>
+      <button class="btn-add" onclick="openAddProspect()">+ Add Prospect</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Name</th><th>Status</th><th>Interest</th><th>Follow-up</th><th>Notes</th><th>Actions</th></tr></thead>
+        <tbody>${rows.length ? rows : '<tr><td colspan="7" style="text-align:center;color:#aaa;padding:24px;">No prospects yet.</td></tr>'}</tbody>
+      </table>
+    </div>`;
+}
+
+// ── RENDER INVENTORY ──────────────────────────────────────────────────────────
+function renderInventory() {
+  const low = lowStockCount();
+  const invStats = `
+    <div class="stats-grid" style="padding:0 0 16px;">
+      <div class="stat-card"><div class="stat-label">Low Stock Alerts</div><div class="stat-val ${low>0?'red':''}">${low}</div><div class="stat-sub">${low===0?'All stocked':'Check inventory'}</div></div>
+      <div class="stat-card"><div class="stat-label">Total Units</div><div class="stat-val">${inventory.reduce((a,i)=>a+i.qty,0)}</div><div class="stat-sub">${inventory.length} products tracked</div></div>
+      <div class="stat-card"><div class="stat-label">Inventory Value</div><div class="stat-val">$${invValue().toFixed(2)}</div><div class="stat-sub">at cost price</div></div>
+      <div class="stat-card"><div class="stat-label">Peptide SKUs</div><div class="stat-val">${peptideSkus()}</div><div class="stat-sub">${supplyItems()} supply items</div></div>
+    </div>`;
+  const rows = inventory.map((item,i) => {
+    const isLow = item.qty <= item.reorder;
+    return `<tr>
+      <td>${i+1}</td>
+      <td>${isLow ? '<span class="alert-dot"></span>' : ''}${item.name}</td>
+      <td>${item.category}</td>
+      <td class="${isLow ? 'low-stock' : ''}">${item.qty}</td>
+      <td>$${item.cost.toFixed(2)}</td>
+      <td>${item.reorder}</td>
+      <td>$${(item.qty * item.cost).toFixed(2)}</td>
+      <td>
+        <button class="btn-sm" onclick="editInv(${item.id})">Edit</button>
+        <button class="btn-sm" style="color:#c0392b;border-color:#c0392b;" onclick="deleteInv(${item.id})">Delete</button>
+      </td>
+    </tr>`;
+  }).join('');
+  document.getElementById('tab-inventory').innerHTML = invStats + `
+    <div class="section-header">
+      <span class="section-title">Inventory</span>
+      <button class="btn-add" onclick="document.getElementById('modal-inventory').classList.add('open')">+ Add Item</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Product Name</th><th>Category</th><th>Qty on Hand</th><th>Unit Cost</th><th>Reorder At</th><th>Total Value</th><th>Actions</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+}
+
+// ── RENDER EXPENSES ───────────────────────────────────────────────────────────
+function renderExpenses() {
+  const rev = totalRevenue(), exp = totalExpenses(), net = rev - exp;
+  const expStats = `
+    <div class="stats-grid" style="padding:0 0 16px;">
+      <div class="stat-card"><div class="stat-label">This Month Spent</div><div class="stat-val red">$${thisMonthExp().toFixed(2)}</div><div class="stat-sub">${expenses.filter(e=>e.date.startsWith('2026-03')).length} expense(s) logged</div></div>
+      <div class="stat-card"><div class="stat-label">All-Time Expenses</div><div class="stat-val red">$${exp.toFixed(2)}</div><div class="stat-sub">${expenses.length} total records</div></div>
+      <div class="stat-card"><div class="stat-label">Total Revenue</div><div class="stat-val green">$${rev.toLocaleString()}</div><div class="stat-sub">from all clients</div></div>
+      <div class="stat-card"><div class="stat-label">Net Profit</div><div class="stat-val green">$${net.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div><div class="stat-sub">revenue − expenses</div></div>
+    </div>`;
+  const rows = expenses.map((e,i) => `<tr>
+    <td>${i+1}</td>
+    <td>${new Date(e.date+'T00:00:00').toLocaleDateString('en-US')}</td>
+    <td><span class="expense-cat">${e.category}</span></td>
+    <td>${e.desc}</td>
+    <td>$${e.amount.toFixed(2)}</td>
+    <td>
+      <button class="btn-sm" onclick="deleteExp(${e.id})">Delete</button>
+    </td>
+  </tr>`).join('');
+  document.getElementById('tab-expenses').innerHTML = expStats + `
+    <div class="section-header">
+      <span class="section-title">Expenses</span>
+      <button class="btn-add" onclick="document.getElementById('modal-expense').classList.add('open')">+ Add Expense</button>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Date</th><th>Category</th><th>Description</th><th>Amount</th><th>Actions</th></tr></thead>
+        <tbody>${rows}</tbody>
+        <tr class="total-row"><td colspan="4" style="text-align:right;padding:11px 14px;">Total</td><td>$${exp.toFixed(2)}</td><td></td></tr>
+      </table>
+    </div>`;
+}
+
+function render() {
+  renderStats();
+  if (activeTab === 'clients')    renderClients();
+  if (activeTab === 'prospects')  renderProspects();
+  if (activeTab === 'inventory')  renderInventory();
+  if (activeTab === 'expenses')   renderExpenses();
+}
+
+// ── CLIENT CRUD ───────────────────────────────────────────────────────────────
+function openAddClient() {
+  editClientId = null;
+  document.getElementById('modal-client-title').textContent = 'Add Client';
+  ['c-name','c-dose','c-date','c-reorder','c-amount','c-notes'].forEach(id => document.getElementById(id).value = '');
+  document.querySelectorAll('#modal-client input[type=checkbox]').forEach(cb => cb.checked = false);
+  document.getElementById('modal-client').classList.add('open');
+}
+function editClient(id) {
+  const c = clients.find(x => x.id === id);
+  editClientId = id;
+  document.getElementById('modal-client-title').textContent = 'Edit Client';
+  document.getElementById('c-name').value = c.name;
+  document.getElementById('c-dose').value = c.dosage;
+  document.getElementById('c-date').value = c.date;
+  document.getElementById('c-reorder').value = c.reorder;
+  document.getElementById('c-amount').value = c.amount;
+  document.getElementById('c-notes').value = c.notes;
+  document.querySelectorAll('#modal-client input[type=checkbox]').forEach(cb => { cb.checked = c.peptides.includes(cb.value); });
+  document.getElementById('modal-client').classList.add('open');
+}
+function saveClient() {
+  const name = document.getElementById('c-name').value.trim();
+  if (!name) return alert('Name required');
+  const peptides = [...document.querySelectorAll('#modal-client input[type=checkbox]:checked')].map(cb => cb.value);
+  const obj = { name, peptides, dosage: document.getElementById('c-dose').value, date: document.getElementById('c-date').value, reorder: parseInt(document.getElementById('c-reorder').value)||0, amount: parseFloat(document.getElementById('c-amount').value)||0, notes: document.getElementById('c-notes').value };
+  if (editClientId) { const i = clients.findIndex(c => c.id === editClientId); clients[i] = {...clients[i], ...obj}; }
+  else { clients.push({id: nextClientId++, ...obj}); }
+  closeModal('modal-client'); render();
+}
+function deleteClient(id) { if (confirm('Delete this client?')) { clients = clients.filter(c => c.id !== id); render(); } }
+
+// ── PROSPECT CRUD ─────────────────────────────────────────────────────────────
+let editProspectId = null;
+function openAddProspect() {
+  editProspectId = null;
+  ['p-name','p-interest','p-followup','p-notes'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('p-status').value = 'Warm';
+  document.getElementById('modal-prospect').classList.add('open');
+}
+function editProspect(id) {
+  editProspectId = id;
+  const p = prospects.find(x => x.id === id);
+  document.getElementById('p-name').value = p.name;
+  document.getElementById('p-status').value = p.status;
+  document.getElementById('p-interest').value = p.interest;
+  document.getElementById('p-followup').value = p.followup;
+  document.getElementById('p-notes').value = p.notes;
+  document.getElementById('modal-prospect').classList.add('open');
+}
+function saveProspect() {
+  const name = document.getElementById('p-name').value.trim();
+  if (!name) return alert('Name required');
+  const obj = { name, status: document.getElementById('p-status').value, interest: document.getElementById('p-interest').value, followup: document.getElementById('p-followup').value, notes: document.getElementById('p-notes').value };
+  if (editProspectId) { const i = prospects.findIndex(p => p.id === editProspectId); prospects[i] = {...prospects[i],...obj}; }
+  else { prospects.push({id: nextProspectId++, ...obj}); }
+  closeModal('modal-prospect'); render();
+}
+function deleteProspect(id) { if (confirm('Delete this prospect?')) { prospects = prospects.filter(p => p.id !== id); render(); } }
+function convertToClient(id) {
+  const p = prospects.find(x => x.id === id);
+  clients.push({ id: nextClientId++, name: p.name, peptides: [], dosage: '', date: new Date().toISOString().split('T')[0], reorder: 30, amount: 0, notes: p.notes });
+  prospects = prospects.filter(x => x.id !== id);
+  alert(`${p.name} converted to client!`);
+  render();
+}
+
+// ── INVENTORY CRUD ────────────────────────────────────────────────────────────
+let editInvId = null;
+function editInv(id) {
+  editInvId = id;
+  const item = inventory.find(x => x.id === id);
+  const qty = prompt(`Update qty for ${item.name} (current: ${item.qty}):`, item.qty);
+  if (qty !== null && !isNaN(qty)) { item.qty = parseInt(qty); render(); }
+}
+function deleteInv(id) { if (confirm('Delete this item?')) { inventory = inventory.filter(i => i.id !== id); render(); } }
+function saveInventory() {
+  const name = document.getElementById('i-name').value.trim();
+  if (!name) return alert('Name required');
+  inventory.push({ id: nextInvId++, name, category: document.getElementById('i-cat').value, qty: parseInt(document.getElementById('i-qty').value)||0, cost: parseFloat(document.getElementById('i-cost').value)||0, reorder: parseInt(document.getElementById('i-reorder').value)||0 });
+  closeModal('modal-inventory'); render();
+}
+
+// ── EXPENSE CRUD ──────────────────────────────────────────────────────────────
+function saveExpense() {
+  const desc = document.getElementById('e-desc').value.trim();
+  if (!desc) return alert('Description required');
+  expenses.push({ id: nextExpId++, date: document.getElementById('e-date').value, category: document.getElementById('e-cat').value, desc, amount: parseFloat(document.getElementById('e-amount').value)||0 });
+  closeModal('modal-expense'); render();
+}
+function deleteExp(id) { if (confirm('Delete this expense?')) { expenses = expenses.filter(e => e.id !== id); render(); } }
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if (e.target === m) m.classList.remove('open'); });
+});
+
+// ── EXPORT ────────────────────────────────────────────────────────────────────
+function exportCSV() {
+  let csv = 'Name,Peptides,Dosage,Purchase Date,Reorder Days,Est Reorder,Amount\n';
+  clients.forEach(c => {
+    csv += `"${c.name}","${c.peptides.join(';')}","${c.dosage}","${c.date}","${c.reorder}","${c.date?estReorder(c.date,c.reorder):''}","${c.amount}"\n`;
+  });
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+  a.download = 'straight_peptides_clients.csv';
+  a.click();
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+renderStats();
+renderClients();
+</script>
+</body>
+</html>
