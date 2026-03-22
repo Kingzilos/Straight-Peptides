@@ -200,48 +200,66 @@
 </div>
 
 <script>
+// ── SUPABASE ──────────────────────────────────────────────────────────────────
+const SUPA_URL = 'https://qjwpvetgyhdzsufykrqn.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqd3B2ZXRneWhkenN1ZnlrcnFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0Mzc2NDEsImV4cCI6MjA4OTAxMzY0MX0.3EwGtwioRv6MjSwZL9vIhRIJ3RmZaX9hRKWAeT4E5Wk';
+const H = { 'Content-Type':'application/json', 'apikey': SUPA_KEY, 'Authorization': `Bearer ${SUPA_KEY}`, 'Prefer':'return=representation' };
+
+async function dbGet(t) {
+  const r = await fetch(`${SUPA_URL}/rest/v1/${t}?order=id`, { headers: H });
+  return r.ok ? r.json() : [];
+}
+async function dbInsert(t, obj) {
+  const r = await fetch(`${SUPA_URL}/rest/v1/${t}`, { method:'POST', headers: H, body: JSON.stringify(obj) });
+  const d = await r.json(); return Array.isArray(d) ? d[0] : d;
+}
+async function dbUpdate(t, id, obj) {
+  await fetch(`${SUPA_URL}/rest/v1/${t}?id=eq.${id}`, { method:'PATCH', headers: H, body: JSON.stringify(obj) });
+}
+async function dbDelete(t, id) {
+  await fetch(`${SUPA_URL}/rest/v1/${t}?id=eq.${id}`, { method:'DELETE', headers: H });
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+function toast(msg, err) {
+  let el = document.getElementById('toast');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'toast';
+    el.style.cssText = 'position:fixed;bottom:20px;right:20px;padding:10px 18px;border-radius:8px;font-size:13px;z-index:999;transition:opacity 0.3s;box-shadow:0 4px 12px rgba(0,0,0,0.15);font-family:Segoe UI,sans-serif;';
+    document.body.appendChild(el);
+  }
+  el.style.background = err ? '#c0392b' : '#1e3a5f';
+  el.style.color = '#fff';
+  el.textContent = msg;
+  el.style.opacity = '1';
+  if (err) setTimeout(() => el.style.opacity = '0', 4000);
+}
+function toastHide() { const el = document.getElementById('toast'); if (el) el.style.opacity = '0'; }
+
 // ── DATA ──────────────────────────────────────────────────────────────────────
-let clients = [
-  {id:1, name:"Joe",         peptides:["Tirzepatide"],                       dosage:"2.5",    date:"2026-02-25", reorder:42,  amount:165, notes:""},
-  {id:2, name:"Jonathon",    peptides:["Tirzepatide","Tesamorelin"],          dosage:"2.5",    date:"2026-03-09", reorder:30,  amount:165, notes:""},
-  {id:3, name:"Chino",       peptides:["Tesamorelin"],                        dosage:"0.5",    date:"2026-03-09", reorder:30,  amount:165, notes:""},
-  {id:4, name:"Bri",         peptides:["Tirzepatide"],                        dosage:"2.5",    date:"2026-03-16", reorder:30,  amount:165, notes:""},
-  {id:5, name:"Rina",        peptides:["Tirzepatide"],                        dosage:"2.5",    date:"2026-02-05", reorder:120, amount:165, notes:""},
-  {id:6, name:"Stephanie",   peptides:["Tirzepatide"],                        dosage:"2.5",    date:"2026-03-10", reorder:30,  amount:165, notes:""},
-  {id:7, name:"Bree (ABQ)",  peptides:["Tirzepatide"],                        dosage:"2.5",    date:"2026-03-05", reorder:60,  amount:165, notes:""},
-  {id:8, name:"Dale",        peptides:[],                                     dosage:"2mg",    date:"2026-02-27", reorder:270, amount:165, notes:""},
-  {id:9, name:"Abraham",     peptides:[],                                     dosage:"2.5mg",  date:"2026-03-04", reorder:60,  amount:165, notes:""},
-  {id:10,name:"Abraham",     peptides:["Tirzepatide","Tesamorelin","BPC-157"],dosage:"2.5",    date:"2026-03-04", reorder:30,  amount:165, notes:"Stacked protocol"},
-  {id:11,name:"Escobar",     peptides:["Tirzepatide","Tesamorelin"],          dosage:"2.5mg",  date:"2026-03-09", reorder:60,  amount:165, notes:""},
-];
-
-let prospects = [
-  {id:1, name:"Ziggy",  status:"Warm", interest:"", followup:"", notes:""},
-  {id:2, name:"Arabee", status:"Warm", interest:"", followup:"", notes:""},
-  {id:3, name:"Malik",  status:"Warm", interest:"", followup:"", notes:""},
-  {id:4, name:"Jazmin", status:"Warm", interest:"", followup:"", notes:""},
-];
-
-let inventory = [
-  {id:1, name:"Tirzepatide 10mg/vial",   category:"Peptide",   qty:15,  cost:10.00, reorder:4},
-  {id:2, name:"Tesamorelin 10mg/vial",   category:"Peptide",   qty:6,   cost:8.00,  reorder:2},
-  {id:3, name:"BPC-157 10mg/vial",       category:"Peptide",   qty:25,  cost:5.00,  reorder:2},
-  {id:4, name:"Bacteriostatic Water",    category:"Supplies",  qty:10,  cost:4.50,  reorder:3},
-  {id:5, name:"Insulin Syringes 28g",   category:"Supplies",  qty:350, cost:0.30,  reorder:50},
-];
-
-let expenses = [
-  {id:1, date:"2026-03-02", category:"Peptide Restocking", desc:"Tirz,HCG,Bac Water.", amount:378.00},
-  {id:2, date:"2026-02-26", category:"Shipping",           desc:"shipping to ABQ",      amount:12.04},
-  {id:3, date:"2026-02-22", category:"Supplies",           desc:"Alcohol Wipes",         amount:8.00},
-  {id:4, date:"2026-02-07", category:"Supplies",           desc:"Needles",               amount:40.00},
-  {id:5, date:"2025-11-20", category:"Peptide Restocking", desc:"Peptides",              amount:68.16},
-  {id:6, date:"2025-09-17", category:"Shipping",           desc:"Peptides",              amount:3.17},
-];
-
-let nextClientId = 12, nextProspectId = 5, nextInvId = 6, nextExpId = 7;
+let clients = [], prospects = [], inventory = [], expenses = [];
 let activeTab = 'clients';
 let editClientId = null;
+
+// ── LOAD FROM SUPABASE ────────────────────────────────────────────────────────
+async function initData() {
+  toast('⟳ Loading...');
+  try {
+    const [c, p, inv, exp] = await Promise.all([
+      dbGet('clients'), dbGet('prospects'), dbGet('inventory'), dbGet('expenses')
+    ]);
+    clients   = c.map(x => ({...x, peptides: Array.isArray(x.peptides) ? x.peptides : []}));
+    prospects = p;
+    inventory = inv;
+    expenses  = exp.map(x => ({...x, desc: x.description || x.desc || ''}));
+    toastHide();
+    render();
+  } catch(e) {
+    toast('⚠ Could not connect to cloud — check Supabase', true);
+    render();
+  }
+}
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
 function estReorder(dateStr, days) {
@@ -469,16 +487,30 @@ function editClient(id) {
   document.querySelectorAll('#modal-client input[type=checkbox]').forEach(cb => { cb.checked = c.peptides.includes(cb.value); });
   document.getElementById('modal-client').classList.add('open');
 }
-function saveClient() {
+async function saveClient() {
   const name = document.getElementById('c-name').value.trim();
   if (!name) return alert('Name required');
   const peptides = [...document.querySelectorAll('#modal-client input[type=checkbox]:checked')].map(cb => cb.value);
   const obj = { name, peptides, dosage: document.getElementById('c-dose').value, date: document.getElementById('c-date').value, reorder: parseInt(document.getElementById('c-reorder').value)||0, amount: parseFloat(document.getElementById('c-amount').value)||0, notes: document.getElementById('c-notes').value };
-  if (editClientId) { const i = clients.findIndex(c => c.id === editClientId); clients[i] = {...clients[i], ...obj}; }
-  else { clients.push({id: nextClientId++, ...obj}); }
+  toast('Saving...');
+  if (editClientId) {
+    await dbUpdate('clients', editClientId, obj);
+    const i = clients.findIndex(c => c.id === editClientId);
+    clients[i] = {...clients[i], ...obj};
+  } else {
+    const saved = await dbInsert('clients', obj);
+    clients.push({...obj, id: saved.id});
+  }
+  toastHide();
   closeModal('modal-client'); render();
 }
-function deleteClient(id) { if (confirm('Delete this client?')) { clients = clients.filter(c => c.id !== id); render(); } }
+async function deleteClient(id) {
+  if (!confirm('Delete this client?')) return;
+  toast('Deleting...');
+  await dbDelete('clients', id);
+  clients = clients.filter(c => c.id !== id);
+  toastHide(); render();
+}
 
 // ── PROSPECT CRUD ─────────────────────────────────────────────────────────────
 let editProspectId = null;
@@ -498,47 +530,89 @@ function editProspect(id) {
   document.getElementById('p-notes').value = p.notes;
   document.getElementById('modal-prospect').classList.add('open');
 }
-function saveProspect() {
+async function saveProspect() {
   const name = document.getElementById('p-name').value.trim();
   if (!name) return alert('Name required');
   const obj = { name, status: document.getElementById('p-status').value, interest: document.getElementById('p-interest').value, followup: document.getElementById('p-followup').value, notes: document.getElementById('p-notes').value };
-  if (editProspectId) { const i = prospects.findIndex(p => p.id === editProspectId); prospects[i] = {...prospects[i],...obj}; }
-  else { prospects.push({id: nextProspectId++, ...obj}); }
+  toast('Saving...');
+  if (editProspectId) {
+    await dbUpdate('prospects', editProspectId, obj);
+    const i = prospects.findIndex(p => p.id === editProspectId);
+    prospects[i] = {...prospects[i], ...obj};
+  } else {
+    const saved = await dbInsert('prospects', obj);
+    prospects.push({...obj, id: saved.id});
+  }
+  toastHide();
   closeModal('modal-prospect'); render();
 }
-function deleteProspect(id) { if (confirm('Delete this prospect?')) { prospects = prospects.filter(p => p.id !== id); render(); } }
-function convertToClient(id) {
+async function deleteProspect(id) {
+  if (!confirm('Delete this prospect?')) return;
+  toast('Deleting...');
+  await dbDelete('prospects', id);
+  prospects = prospects.filter(p => p.id !== id);
+  toastHide(); render();
+}
+async function convertToClient(id) {
   const p = prospects.find(x => x.id === id);
-  clients.push({ id: nextClientId++, name: p.name, peptides: [], dosage: '', date: new Date().toISOString().split('T')[0], reorder: 30, amount: 0, notes: p.notes });
+  toast('Converting...');
+  const saved = await dbInsert('clients', { name: p.name, peptides: [], dosage: '', date: new Date().toISOString().split('T')[0], reorder: 30, amount: 0, notes: p.notes });
+  clients.push({...saved, peptides: []});
+  await dbDelete('prospects', id);
   prospects = prospects.filter(x => x.id !== id);
+  toastHide();
   alert(`${p.name} converted to client!`);
   render();
 }
 
 // ── INVENTORY CRUD ────────────────────────────────────────────────────────────
 let editInvId = null;
-function editInv(id) {
-  editInvId = id;
+async function editInv(id) {
   const item = inventory.find(x => x.id === id);
   const qty = prompt(`Update qty for ${item.name} (current: ${item.qty}):`, item.qty);
-  if (qty !== null && !isNaN(qty)) { item.qty = parseInt(qty); render(); }
+  if (qty !== null && !isNaN(qty)) {
+    toast('Saving...');
+    await dbUpdate('inventory', id, { qty: parseInt(qty) });
+    item.qty = parseInt(qty);
+    toastHide(); render();
+  }
 }
-function deleteInv(id) { if (confirm('Delete this item?')) { inventory = inventory.filter(i => i.id !== id); render(); } }
-function saveInventory() {
+async function deleteInv(id) {
+  if (!confirm('Delete this item?')) return;
+  toast('Deleting...');
+  await dbDelete('inventory', id);
+  inventory = inventory.filter(i => i.id !== id);
+  toastHide(); render();
+}
+async function saveInventory() {
   const name = document.getElementById('i-name').value.trim();
   if (!name) return alert('Name required');
-  inventory.push({ id: nextInvId++, name, category: document.getElementById('i-cat').value, qty: parseInt(document.getElementById('i-qty').value)||0, cost: parseFloat(document.getElementById('i-cost').value)||0, reorder: parseInt(document.getElementById('i-reorder').value)||0 });
+  const obj = { name, category: document.getElementById('i-cat').value, qty: parseInt(document.getElementById('i-qty').value)||0, cost: parseFloat(document.getElementById('i-cost').value)||0, reorder: parseInt(document.getElementById('i-reorder').value)||0 };
+  toast('Saving...');
+  const saved = await dbInsert('inventory', obj);
+  inventory.push({...obj, id: saved.id});
+  toastHide();
   closeModal('modal-inventory'); render();
 }
 
 // ── EXPENSE CRUD ──────────────────────────────────────────────────────────────
-function saveExpense() {
+async function saveExpense() {
   const desc = document.getElementById('e-desc').value.trim();
   if (!desc) return alert('Description required');
-  expenses.push({ id: nextExpId++, date: document.getElementById('e-date').value, category: document.getElementById('e-cat').value, desc, amount: parseFloat(document.getElementById('e-amount').value)||0 });
+  const obj = { date: document.getElementById('e-date').value, category: document.getElementById('e-cat').value, description: desc, amount: parseFloat(document.getElementById('e-amount').value)||0 };
+  toast('Saving...');
+  const saved = await dbInsert('expenses', obj);
+  expenses.push({...obj, id: saved.id, desc});
+  toastHide();
   closeModal('modal-expense'); render();
 }
-function deleteExp(id) { if (confirm('Delete this expense?')) { expenses = expenses.filter(e => e.id !== id); render(); } }
+async function deleteExp(id) {
+  if (!confirm('Delete this expense?')) return;
+  toast('Deleting...');
+  await dbDelete('expenses', id);
+  expenses = expenses.filter(e => e.id !== id);
+  toastHide(); render();
+}
 
 // ── MODAL ─────────────────────────────────────────────────────────────────────
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
@@ -559,8 +633,7 @@ function exportCSV() {
 }
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
-renderStats();
-renderClients();
+initData();
 </script>
 </body>
 </html>
