@@ -4,21 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Straight Peptides — Post Generator</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0f;
-    --surface: #12121a;
-    --surface2: #1a1a26;
-    --border: #2a2a3d;
-    --accent: #00e5b4;
-    --accent2: #7c6bff;
-    --text: #e8e8f0;
-    --muted: #6b6b8a;
-    --danger: #ff4d6d;
-    --ig: #e1306c;
-    --tt: #010101;
-    --tt-accent: #fe2c55;
+    --bg: #f5f5f7;
+    --white: #ffffff;
+    --border: #e0e0e5;
+    --blue: #1a6fb5;
+    --blue-light: #e8f0f9;
+    --text: #1d1d1f;
+    --muted: #86868b;
+    --muted2: #aeaeb2;
+    --radius: 16px;
+    --shadow: 0 2px 20px rgba(0,0,0,0.07);
+    --shadow-hover: 0 4px 32px rgba(0,0,0,0.11);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -26,985 +25,874 @@
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     min-height: 100vh;
-    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* Background grid */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(0,229,180,0.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,229,180,0.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .container {
-    max-width: 900px;
+  .page {
+    max-width: 720px;
     margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
-    position: relative;
-    z-index: 1;
+    padding: 3rem 1.5rem 6rem;
   }
 
   /* Header */
   .header {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 2.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border);
+    text-align: center;
+    margin-bottom: 3rem;
   }
 
-  .logo-mark {
-    width: 44px;
-    height: 44px;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
+  .logo-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--blue);
     border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.4rem;
-    color: #000;
-    flex-shrink: 0;
-    box-shadow: 0 0 20px rgba(0,229,180,0.3);
+    display: flex; align-items: center; justify-content: center;
   }
 
-  .header-text h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 2px;
+  .logo-icon svg { width: 20px; height: 20px; }
+
+  .logo-name {
+    font-size: 1rem;
+    font-weight: 600;
     color: var(--text);
-    line-height: 1;
+    letter-spacing: -0.2px;
   }
 
-  .header-text p {
-    font-size: 0.78rem;
+  .header h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .header p {
+    font-size: 0.95rem;
     color: var(--muted);
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-top: 3px;
-  }
-
-  /* Section label */
-  .section-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--accent);
-    margin-bottom: 0.6rem;
+    margin-top: 0.4rem;
+    font-weight: 400;
   }
 
   /* Card */
   .card {
-    background: var(--surface);
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
     border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.5rem;
-    margin-bottom: 1.25rem;
   }
 
-  /* Platform toggle */
-  .platform-row {
-    display: flex;
-    gap: 0.75rem;
-  }
-
-  .platform-btn {
-    flex: 1;
-    padding: 0.7rem 1rem;
-    border-radius: 10px;
-    border: 1.5px solid var(--border);
-    background: var(--surface2);
+  .card-title {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
     color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Platform */
+  .plat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.6rem; }
+
+  .plat-btn {
+    padding: 0.7rem 0.5rem;
+    border: 1.5px solid var(--border);
+    border-radius: 12px;
+    background: var(--white);
+    color: var(--muted);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.82rem;
     font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+    transition: all 0.15s;
+    text-align: center;
   }
 
-  .platform-btn.active-ig {
-    border-color: var(--ig);
-    color: var(--ig);
-    background: rgba(225,48,108,0.08);
-    box-shadow: 0 0 12px rgba(225,48,108,0.15);
+  .plat-btn:hover { border-color: var(--blue); color: var(--blue); }
+
+  .plat-btn.active {
+    border-color: var(--blue);
+    color: var(--blue);
+    background: var(--blue-light);
+    font-weight: 600;
   }
 
-  .platform-btn.active-tt {
-    border-color: var(--tt-accent);
-    color: var(--tt-accent);
-    background: rgba(254,44,85,0.08);
-    box-shadow: 0 0 12px rgba(254,44,85,0.15);
-  }
+  /* Form */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .span2 { grid-column: 1/-1; }
 
-  /* Form grid */
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
+  .field { display: flex; flex-direction: column; gap: 0.4rem; }
 
-  .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  .form-group.full {
-    grid-column: 1 / -1;
-  }
-
-  label {
-    font-size: 0.78rem;
+  .field label {
+    font-size: 0.75rem;
     font-weight: 500;
     color: var(--muted);
-    letter-spacing: 0.5px;
+    letter-spacing: 0.2px;
   }
 
   select, input, textarea {
-    background: var(--surface2);
+    background: var(--bg);
     border: 1px solid var(--border);
-    border-radius: 8px;
+    border-radius: 10px;
     color: var(--text);
-    font-family: 'DM Sans', sans-serif;
+    font-family: 'Inter', sans-serif;
     font-size: 0.88rem;
-    padding: 0.6rem 0.85rem;
+    font-weight: 400;
+    padding: 0.65rem 0.9rem;
     width: 100%;
-    transition: border-color 0.2s;
     outline: none;
-    -webkit-appearance: none;
-    appearance: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    -webkit-appearance: none; appearance: none;
   }
 
   select {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6b8a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%2386868b' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
-    background-position: right 0.85rem center;
+    background-position: right 0.9rem center;
     padding-right: 2.2rem;
+    cursor: pointer;
   }
 
-  select option { background: var(--surface2); }
+  select option { background: #fff; }
+  textarea { resize: vertical; min-height: 72px; line-height: 1.6; }
 
-  textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
-
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(0,229,180,0.08);
+  select:focus, input:focus, textarea:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(26,111,181,0.1);
+    background: var(--white);
   }
 
-  /* Hashtag pills */
-  .hashtag-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
-    margin-top: 0.4rem;
-  }
+  /* Divider */
+  .divider { border: none; border-top: 1px solid var(--border); margin: 1.25rem 0; }
 
-  .tag-pill {
-    background: var(--surface2);
+  /* Tags */
+  .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  .tag {
+    background: var(--bg);
     border: 1px solid var(--border);
     border-radius: 20px;
     padding: 0.25rem 0.7rem;
     font-size: 0.75rem;
     color: var(--muted);
     cursor: pointer;
-    transition: all 0.15s;
     user-select: none;
+    transition: all 0.12s;
+    font-weight: 400;
   }
 
-  .tag-pill.selected {
-    background: rgba(0,229,180,0.1);
-    border-color: var(--accent);
-    color: var(--accent);
+  .tag:hover { border-color: var(--blue); color: var(--blue); }
+
+  .tag.on {
+    background: var(--blue-light);
+    border-color: var(--blue);
+    color: var(--blue);
+    font-weight: 500;
   }
 
-  /* Quantity selector */
-  .qty-row {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
+  /* Qty */
+  .qty-row { display: flex; align-items: center; gap: 0.75rem; }
 
   .qty-btn {
     width: 32px; height: 32px;
-    border-radius: 8px;
+    border-radius: 50%;
     border: 1px solid var(--border);
-    background: var(--surface2);
+    background: var(--bg);
     color: var(--text);
     font-size: 1.1rem;
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s;
+    transition: all 0.12s;
     flex-shrink: 0;
+    font-weight: 300;
   }
 
-  .qty-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .qty-btn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
 
-  .qty-display {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.4rem;
-    color: var(--accent);
-    min-width: 24px;
+  .qty-val {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    min-width: 20px;
     text-align: center;
   }
 
-  .qty-label { font-size: 0.82rem; color: var(--muted); }
+  .qty-lbl { font-size: 0.82rem; color: var(--muted); }
 
-  /* Generate button */
-  .generate-btn {
+  /* Generate */
+  .gen-btn {
     width: 100%;
-    padding: 1rem;
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    padding: 0.95rem;
+    background: var(--blue);
     border: none;
-    border-radius: 12px;
-    color: #000;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.1rem;
-    letter-spacing: 2px;
+    border-radius: 14px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: -0.1px;
     cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 4px 20px rgba(0,229,180,0.25);
+    transition: all 0.15s;
     margin-top: 0.5rem;
+    box-shadow: 0 2px 12px rgba(26,111,181,0.25);
   }
 
-  .generate-btn:hover:not(:disabled) {
+  .gen-btn:hover:not(:disabled) {
+    background: #155fa0;
+    box-shadow: 0 4px 20px rgba(26,111,181,0.35);
     transform: translateY(-1px);
-    box-shadow: 0 6px 28px rgba(0,229,180,0.35);
   }
 
-  .generate-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    transform: none;
-  }
+  .gen-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
 
   /* Loading */
-  .loading-state {
-    display: none;
-    text-align: center;
-    padding: 2rem;
-  }
+  .loading { display: none; text-align: center; padding: 3rem 1rem; }
+  .loading.show { display: block; }
 
-  .loading-state.visible { display: block; }
-
-  .spinner {
-    width: 40px; height: 40px;
+  .loader {
+    width: 32px; height: 32px;
     border: 2px solid var(--border);
-    border-top-color: var(--accent);
+    border-top-color: var(--blue);
     border-radius: 50%;
-    animation: spin 0.8s linear infinite;
+    animation: spin 0.7s linear infinite;
     margin: 0 auto 1rem;
   }
 
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  .loading-text {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.8rem;
-    color: var(--muted);
-    letter-spacing: 1px;
-  }
+  .load-txt { font-size: 0.85rem; color: var(--muted); }
 
   /* Results */
-  .results-section { display: none; }
-  .results-section.visible { display: block; }
+  .results { display: none; }
+  .results.show { display: block; }
 
-  .results-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
+  .results-hdr {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 1.25rem;
   }
 
-  .results-count {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--muted);
-  }
+  .results-count { font-size: 0.8rem; color: var(--muted); font-weight: 500; }
 
-  .regenerate-btn {
+  .regen-btn {
     background: none;
     border: 1px solid var(--border);
     color: var(--muted);
-    padding: 0.35rem 0.85rem;
-    border-radius: 8px;
+    padding: 0.35rem 0.9rem;
+    border-radius: 20px;
     font-size: 0.78rem;
     cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    transition: all 0.12s;
   }
 
-  .regenerate-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .regen-btn:hover { border-color: var(--blue); color: var(--blue); }
 
   /* Post card */
   .post-card {
-    background: var(--surface);
+    background: var(--white);
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: var(--radius);
     margin-bottom: 1rem;
+    box-shadow: var(--shadow);
     overflow: hidden;
-    animation: fadeUp 0.4s ease both;
+    animation: fadeUp 0.3s ease both;
   }
 
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(12px); }
+    from { opacity: 0; transform: translateY(8px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .post-card:nth-child(2) { animation-delay: 0.07s; }
-  .post-card:nth-child(3) { animation-delay: 0.14s; }
-  .post-card:nth-child(4) { animation-delay: 0.21s; }
-  .post-card:nth-child(5) { animation-delay: 0.28s; }
-  .post-card:nth-child(6) { animation-delay: 0.35s; }
-  .post-card:nth-child(7) { animation-delay: 0.42s; }
+  .post-card:nth-child(2) { animation-delay: 0.06s; }
+  .post-card:nth-child(3) { animation-delay: 0.12s; }
+  .post-card:nth-child(4) { animation-delay: 0.18s; }
+  .post-card:nth-child(5) { animation-delay: 0.24s; }
+  .post-card:nth-child(6) { animation-delay: 0.3s; }
+  .post-card:nth-child(7) { animation-delay: 0.36s; }
 
-  .post-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.85rem 1.1rem;
+  .post-hdr {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.9rem 1.25rem;
     border-bottom: 1px solid var(--border);
-    background: var(--surface2);
   }
 
-  .post-meta {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
+  .post-meta { display: flex; align-items: center; gap: 0.6rem; }
 
-  .post-number {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--muted);
-  }
+  .post-num { font-size: 0.75rem; font-weight: 500; color: var(--muted2); }
 
-  .platform-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    padding: 0.2rem 0.6rem;
-    border-radius: 20px;
+  .plat-badge {
     font-size: 0.72rem;
     font-weight: 600;
-  }
-
-  .badge-ig {
-    background: rgba(225,48,108,0.15);
-    color: var(--ig);
-    border: 1px solid rgba(225,48,108,0.3);
-  }
-
-  .badge-tt {
-    background: rgba(254,44,85,0.12);
-    color: var(--tt-accent);
-    border: 1px solid rgba(254,44,85,0.25);
+    padding: 0.18rem 0.6rem;
+    border-radius: 20px;
+    background: var(--blue-light);
+    color: var(--blue);
+    border: 1px solid rgba(26,111,181,0.2);
   }
 
   .copy-btn {
     background: none;
     border: 1px solid var(--border);
     color: var(--muted);
-    padding: 0.3rem 0.75rem;
-    border-radius: 7px;
+    padding: 0.28rem 0.75rem;
+    border-radius: 20px;
     font-size: 0.75rem;
+    font-weight: 500;
     cursor: pointer;
-    font-family: 'DM Mono', monospace;
-    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.12s;
   }
 
-  .copy-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .copy-btn.copied { border-color: var(--accent); color: var(--accent); }
+  .copy-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .copy-btn.done { border-color: #34c759; color: #34c759; }
 
-  .post-body {
-    padding: 1.1rem;
-  }
+  .post-body { padding: 1.25rem; }
 
   .post-hook {
     font-size: 0.95rem;
     font-weight: 600;
     color: var(--text);
     margin-bottom: 0.6rem;
-    line-height: 1.4;
+    line-height: 1.45;
+    letter-spacing: -0.1px;
   }
 
-  .post-content {
-    font-size: 0.88rem;
-    color: #b8b8d0;
-    line-height: 1.65;
+  .post-text {
+    font-size: 0.875rem;
+    color: #444;
+    line-height: 1.7;
     white-space: pre-wrap;
     word-break: break-word;
+    font-weight: 400;
   }
 
-  .post-hashtags {
+  .post-tags {
     margin-top: 0.75rem;
-    font-size: 0.82rem;
-    color: var(--accent2);
+    font-size: 0.8rem;
+    color: var(--blue);
     line-height: 1.6;
+    font-weight: 400;
   }
 
-  /* Image */
-  .post-image-wrap {
-    position: relative;
-    background: var(--surface2);
-    border-bottom: 1px solid var(--border);
-    overflow: hidden;
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  /* Image prompt section */
+  .img-prompt-section {
+    border-top: 1px solid var(--border);
+    padding: 1rem 1.25rem;
+    background: var(--bg);
   }
 
-  .post-image {
-    width: 100%;
-    max-height: 340px;
-    object-fit: cover;
-    display: block;
-    transition: opacity 0.4s;
-  }
-
-  .post-image.loading { opacity: 0; }
-  .post-image.loaded { opacity: 1; }
-
-  .img-skeleton {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.6rem;
-    color: var(--muted);
-  }
-
-  .img-skeleton-bar {
-    width: 60px; height: 60px;
-    border: 2px solid var(--border);
-    border-top-color: var(--accent);
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-
-  .img-skeleton span {
-    font-family: 'DM Mono', monospace;
+  .img-prompt-label {
     font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
     letter-spacing: 1px;
     color: var(--muted);
-  }
-
-  .img-actions {
-    position: absolute;
-    bottom: 0.6rem;
-    right: 0.6rem;
+    margin-bottom: 0.5rem;
     display: flex;
-    gap: 0.4rem;
-  }
-
-  .img-action-btn {
-    background: rgba(10,10,15,0.85);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 0.3rem 0.65rem;
-    border-radius: 7px;
-    font-size: 0.72rem;
-    cursor: pointer;
-    font-family: 'DM Mono', monospace;
-    backdrop-filter: blur(4px);
-    transition: all 0.15s;
-    text-decoration: none;
-    display: inline-flex;
     align-items: center;
-    gap: 0.3rem;
+    justify-content: space-between;
   }
 
-  .img-action-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .copy-prompt-btn {
+    background: none;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.12s;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+
+  .copy-prompt-btn:hover { border-color: var(--blue); color: var(--blue); }
+  .copy-prompt-btn.done { border-color: #34c759; color: #34c759; }
+
+  .img-prompt-text {
+    font-size: 0.8rem;
+    color: #555;
+    line-height: 1.55;
+    font-style: italic;
+    font-weight: 400;
+  }
+
+  .chatgpt-hint {
+    margin-top: 0.5rem;
+    font-size: 0.72rem;
+    color: var(--muted2);
+  }
 
   /* Error */
-  .error-msg {
-    background: rgba(255,77,109,0.08);
-    border: 1px solid rgba(255,77,109,0.3);
-    border-radius: 10px;
-    padding: 1rem;
-    color: var(--danger);
-    font-size: 0.85rem;
-    margin-top: 1rem;
+  .err {
+    background: #fff2f4;
+    border: 1px solid #ffd0d7;
+    border-radius: 12px;
+    padding: 0.85rem 1rem;
+    color: #c0392b;
+    font-size: 0.84rem;
+    margin-top: 0.75rem;
     display: none;
   }
 
-  .error-msg.visible { display: block; }
+  .err.show { display: block; }
 
-  /* Divider */
-  .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 1.25rem 0;
-  }
-
-  @media (max-width: 600px) {
+  @media (max-width: 560px) {
     .form-grid { grid-template-columns: 1fr; }
-    .form-group.full { grid-column: auto; }
+    .span2 { grid-column: auto; }
+    .plat-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
 <body>
-<div class="container">
+<div class="page">
 
   <!-- Header -->
   <div class="header">
-    <div class="logo-mark">SP</div>
-    <div class="header-text">
-      <h1>Straight Peptides</h1>
-      <p>Social Post Generator</p>
+    <div class="logo-wrap">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 4C10 4 8 5.5 8 8C8 10.5 10 11 12 11C14 11 16 11.5 16 14C16 16.5 14 18 12 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="12" cy="4" r="1.5" fill="white"/>
+          <circle cx="12" cy="18" r="1.5" fill="white"/>
+        </svg>
+      </div>
+      <span class="logo-name">Straight Peptides</span>
+    </div>
+    <h1>Post Generator</h1>
+    <p>Create captions and image prompts for Instagram & TikTok</p>
+  </div>
+
+  <!-- Platform -->
+  <div class="card">
+    <div class="card-title">Platform</div>
+    <div class="plat-grid">
+      <button class="plat-btn active" id="btn-ig" onclick="setPlatform('instagram')">Instagram</button>
+      <button class="plat-btn" id="btn-tt" onclick="setPlatform('tiktok')">TikTok</button>
+      <button class="plat-btn" id="btn-both" onclick="setPlatform('both')">Both</button>
     </div>
   </div>
 
-  <!-- Platform Selection -->
+  <!-- Settings -->
   <div class="card">
-    <div class="section-label">Platform</div>
-    <div class="platform-row">
-      <button class="platform-btn active-ig" id="btn-ig" onclick="togglePlatform('instagram')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        Instagram
-      </button>
-      <button class="platform-btn" id="btn-tt" onclick="togglePlatform('tiktok')">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.31 6.31 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.77a4.85 4.85 0 01-1.01-.08z"/></svg>
-        TikTok
-      </button>
-      <button class="platform-btn" id="btn-both" onclick="togglePlatform('both')">
-        ✦ Both
-      </button>
-    </div>
-  </div>
-
-  <!-- Post Settings -->
-  <div class="card">
-    <div class="section-label">Post Settings</div>
+    <div class="card-title">Post Settings</div>
     <div class="form-grid">
 
-      <div class="form-group">
+      <div class="field">
         <label>Peptide / Topic</label>
         <select id="topic">
-          <option value="">— Select or type below —</option>
-          <option value="Tirzepatide">Tirzepatide (fat loss)</option>
-          <option value="Tesamorelin">Tesamorelin (belly fat / GH)</option>
-          <option value="BPC-157">BPC-157 (recovery / gut)</option>
-          <option value="Semaglutide">Semaglutide (weight loss)</option>
-          <option value="CJC-1295 + Ipamorelin">CJC-1295 + Ipamorelin (sleep / GH)</option>
-          <option value="PT-141">PT-141 (libido)</option>
-          <option value="Sermorelin">Sermorelin (anti-aging / GH)</option>
-          <option value="TB-500">TB-500 (injury / recovery)</option>
-          <option value="NAD+">NAD+ (energy / longevity)</option>
+          <option value="">Select a topic</option>
+          <optgroup label="Weight Loss / GLP-1">
+            <option value="Tirzepatide 10mg">Tirzepatide 10mg — fat loss</option>
+            <option value="Tirzepatide 20mg">Tirzepatide 20mg — fat loss</option>
+            <option value="Retatrutide 30mg">Retatrutide 30mg — aggressive fat loss</option>
+            <option value="Cagrilintide 5mg">Cagrilintide 5mg — appetite control</option>
+          </optgroup>
+          <optgroup label="Growth Hormone / Body Composition">
+            <option value="Tesamorelin 10mg">Tesamorelin 10mg — belly fat / GH</option>
+            <option value="CJC/IPA Blend 5mg/5mg">CJC/IPA Blend — sleep / GH / muscle</option>
+          </optgroup>
+          <optgroup label="Recovery & Healing">
+            <option value="BPC-157 10mg">BPC-157 10mg — recovery / gut / joints</option>
+          </optgroup>
+          <optgroup label="Anti-Aging & Wellness">
+            <option value="NAD+ 100mg">NAD+ 100mg — energy / longevity</option>
+            <option value="GHK-Cu 50mg">GHK-Cu 50mg — skin / anti-aging</option>
+          </optgroup>
           <option value="custom">Custom topic...</option>
         </select>
       </div>
 
-      <div class="form-group" id="custom-topic-group" style="display:none;">
+      <div class="field" id="custom-grp" style="display:none">
         <label>Custom Topic</label>
-        <input type="text" id="custom-topic" placeholder="e.g. peptides for women over 40">
+        <input type="text" id="custom-topic" placeholder="e.g. peptides for women 40+">
       </div>
 
-      <div class="form-group">
+      <div class="field">
         <label>Post Goal</label>
         <select id="goal">
-          <option value="educate">Educate (what it does)</option>
-          <option value="sell">Drive inquiries / DMs</option>
-          <option value="testimonial">Social proof / results story</option>
+          <option value="educate">Educate — what it does</option>
+          <option value="sell">Drive DMs / inquiries</option>
+          <option value="testimonial">Results story / social proof</option>
           <option value="myth-bust">Bust a myth</option>
-          <option value="hook">Scroll-stopping hook post</option>
-          <option value="comparison">Before vs After / compare</option>
+          <option value="hook">Scroll-stopping hook</option>
+          <option value="comparison">Before vs After</option>
         </select>
       </div>
 
-      <div class="form-group">
+      <div class="field">
         <label>Tone</label>
         <select id="tone">
           <option value="confident-clinical">Confident & clinical</option>
-          <option value="conversational">Conversational & relatable</option>
-          <option value="bold-hype">Bold & hype (TikTok energy)</option>
-          <option value="luxury">Premium / luxury feel</option>
-          <option value="educational">Educational / breakdown</option>
+          <option value="conversational">Conversational & warm</option>
+          <option value="bold-hype">Bold & direct (TikTok)</option>
+          <option value="luxury">Premium / luxury</option>
+          <option value="educational">Educational breakdown</option>
         </select>
       </div>
 
-      <div class="form-group full">
+      <div class="field span2">
         <label>Extra Context (optional)</label>
-        <textarea id="context" placeholder="e.g. targeting women 35-55, El Paso market, mention consult is free, avoid mentioning price..."></textarea>
+        <textarea id="context" placeholder="e.g. targeting women 35–55, mention free consultation, El Paso..."></textarea>
       </div>
 
     </div>
 
-    <div class="divider"></div>
+    <hr class="divider">
 
-    <!-- Hashtags -->
-    <div class="section-label">Hashtag Style</div>
-    <div class="hashtag-row" id="hashtag-pills">
-      <div class="tag-pill selected" data-tag="peptides">#peptides</div>
-      <div class="tag-pill selected" data-tag="weightloss">#weightloss</div>
-      <div class="tag-pill selected" data-tag="fatburner">#fatburner</div>
-      <div class="tag-pill" data-tag="tirzepatide">#tirzepatide</div>
-      <div class="tag-pill" data-tag="semaglutide">#semaglutide</div>
-      <div class="tag-pill" data-tag="bodyrecomposition">#bodyrecomp</div>
-      <div class="tag-pill" data-tag="elpaso">#elpaso</div>
-      <div class="tag-pill" data-tag="wellness">#wellness</div>
-      <div class="tag-pill" data-tag="hormones">#hormones</div>
-      <div class="tag-pill" data-tag="musclegain">#musclegain</div>
-      <div class="tag-pill" data-tag="antiaging">#antiaging</div>
-      <div class="tag-pill" data-tag="biohacking">#biohacking</div>
+    <div class="card-title">Hashtags</div>
+    <div class="tags" id="tags">
+      <div class="tag on" data-tag="peptides">#peptides</div>
+      <div class="tag on" data-tag="weightloss">#weightloss</div>
+      <div class="tag on" data-tag="fatburner">#fatburner</div>
+      <div class="tag" data-tag="tirzepatide">#tirzepatide</div>
+      <div class="tag" data-tag="semaglutide">#semaglutide</div>
+      <div class="tag" data-tag="bodyrecomp">#bodyrecomp</div>
+      <div class="tag" data-tag="elpaso">#elpaso</div>
+      <div class="tag on" data-tag="wellness">#wellness</div>
+      <div class="tag" data-tag="hormones">#hormones</div>
+      <div class="tag" data-tag="musclegain">#musclegain</div>
+      <div class="tag" data-tag="antiaging">#antiaging</div>
+      <div class="tag" data-tag="biohacking">#biohacking</div>
+      <div class="tag" data-tag="straightpeptides">#straightpeptides</div>
     </div>
 
-    <div class="divider"></div>
+    <hr class="divider">
 
-    <!-- Quantity -->
-    <div class="section-label">How Many Posts</div>
+    <div class="card-title">Number of Posts</div>
     <div class="qty-row">
-      <button class="qty-btn" onclick="adjustQty(-1)">−</button>
-      <span class="qty-display" id="qty-display">3</span>
-      <button class="qty-btn" onclick="adjustQty(1)">+</button>
-      <span class="qty-label">posts per platform</span>
+      <button class="qty-btn" onclick="chQty(-1)">−</button>
+      <span class="qty-val" id="qty">3</span>
+      <button class="qty-btn" onclick="chQty(1)">+</button>
+      <span class="qty-lbl">posts per platform</span>
     </div>
 
   </div>
 
-  <button class="generate-btn" id="gen-btn" onclick="generatePosts()">
-    ⚡ GENERATE POSTS
-  </button>
+  <button class="gen-btn" id="gen-btn" onclick="generate()">Generate Posts</button>
+  <div class="err" id="err"></div>
 
-  <!-- Error -->
-  <div class="error-msg" id="error-msg"></div>
-
-  <!-- Loading -->
-  <div class="loading-state" id="loading">
-    <div class="spinner"></div>
-    <div class="loading-text" id="loading-text">Crafting your posts...</div>
+  <div class="loading" id="loading">
+    <div class="loader"></div>
+    <div class="load-txt" id="load-txt">Writing your posts...</div>
   </div>
 
-  <!-- Results -->
-  <div class="results-section" id="results">
-    <div class="results-header">
-      <div class="results-count" id="results-count"></div>
-      <button class="regenerate-btn" onclick="generatePosts()">↺ Regenerate</button>
+  <div class="results" id="results">
+    <div class="results-hdr">
+      <span class="results-count" id="results-count"></span>
+      <button class="regen-btn" onclick="generate()">Regenerate</button>
     </div>
-    <div id="posts-container"></div>
+    <div id="cards"></div>
   </div>
 
 </div>
-
 <script>
+const GROQ_KEY = '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';
 let platform = 'instagram';
 let qty = 3;
 
-const loadingMessages = [
-  "Crafting your hooks...",
-  "Writing caption copy...",
-  "Adding hashtag strategy...",
-  "Polishing the final posts..."
-];
+const loadMsgs = ['Writing your posts...', 'Crafting the hooks...', 'Adding hashtags...', 'Almost done...'];
 
-function togglePlatform(p) {
+function setPlatform(p) {
   platform = p;
-  document.getElementById('btn-ig').className = 'platform-btn' + (p === 'instagram' ? ' active-ig' : '');
-  document.getElementById('btn-tt').className = 'platform-btn' + (p === 'tiktok' ? ' active-tt' : '');
-  document.getElementById('btn-both').className = 'platform-btn' + (p === 'both' ? ' active-ig' : '');
+  ['ig','tt','both'].forEach(x => {
+    const btn = document.getElementById('btn-' + x);
+    const match = (x === 'ig' && p === 'instagram') || (x === 'tt' && p === 'tiktok') || (x === 'both' && p === 'both');
+    btn.classList.toggle('active', match);
+  });
 }
 
-function adjustQty(delta) {
-  qty = Math.max(1, Math.min(7, qty + delta));
-  document.getElementById('qty-display').textContent = qty;
+function chQty(d) {
+  qty = Math.max(1, Math.min(7, qty + d));
+  document.getElementById('qty').textContent = qty;
 }
 
 document.getElementById('topic').addEventListener('change', function() {
-  const cg = document.getElementById('custom-topic-group');
-  cg.style.display = this.value === 'custom' ? 'flex' : 'none';
-  if (this.value !== 'custom') cg.style.display = 'none';
-  else cg.style.display = 'block';
+  document.getElementById('custom-grp').style.display = this.value === 'custom' ? 'block' : 'none';
 });
 
-document.querySelectorAll('.tag-pill').forEach(pill => {
-  pill.addEventListener('click', () => pill.classList.toggle('selected'));
-});
+document.querySelectorAll('.tag').forEach(t => t.addEventListener('click', () => t.classList.toggle('on')));
 
-function getSelectedHashtags() {
-  return Array.from(document.querySelectorAll('.tag-pill.selected'))
-    .map(p => '#' + p.dataset.tag);
+function getTags() {
+  return Array.from(document.querySelectorAll('.tag.on')).map(t => '#' + t.dataset.tag).join(' ');
+}
+
+function getTopic() {
+  const v = document.getElementById('topic').value;
+  return v === 'custom' ? (document.getElementById('custom-topic').value || 'peptide therapy') : v || 'peptide therapy';
+}
+
+function randPick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function buildImagePrompt(topic, tone, goal, index) {
+  const scenes = [
+    'a fit athletic woman in a bright modern kitchen holding a supplement vial, morning light, white countertops',
+    'a toned man stretching in a minimalist home gym, natural daylight, white walls',
+    'a confident woman in athletic wear walking in a sunny park, golden hour lighting',
+    'close-up of glass peptide vials on white marble with fresh mint leaves, overhead product shot',
+    'a fit woman checking her waistline in a mirror, modern bright bathroom, side lighting',
+    'overhead flat lay of peptide vials and insulin syringes on a white surface, medical minimal aesthetic',
+    'a smiling fit man holding a coffee by a bright window, morning wellness routine',
+    'a woman in yoga pants sitting on a white bed, calm morning energy, supplement on nightstand',
+    'an athletic person from behind showing defined muscles, dramatic studio lighting',
+    'a fit couple on a morning jog in a clean suburban neighborhood, sunrise lighting',
+    'a woman doing pilates in a bright white studio, athletic wear, clean minimal background',
+    'a man cooking a healthy meal in a modern kitchen, lean physique, natural light',
+    'close-up of a fit midsection with hands on waist, bright clean background, confidence shot',
+    'a woman at a sleek modern desk, healthy and energized, professional wellness vibe',
+    'a glass of water with a supplement vial on a white wooden table, morning light, minimal lifestyle'
+  ];
+
+  const layouts = [
+    'Place a clean white semi-transparent panel on the LEFT containing the text. Photo fills the right side.',
+    'Place a frosted white bar across the BOTTOM with all text inside it.',
+    'Place bold text in the TOP LEFT corner directly over a light area of the photo.',
+    'Place a white vertical sidebar on the RIGHT side with text. Photo fills the left.',
+    'Place text centered at the TOP in a clean white strip above the photo.',
+    'Place a large bold title at the top left and benefits stacked below it with a subtle white glow behind the text.',
+    'Place text in a diagonal white card overlaid on the bottom left corner of the photo.'
+  ];
+
+  const colorStyles = [
+    'light blue (#4A90D9) icon accents on white background',
+    'soft teal (#3ABFBF) icon accents on white background',
+    'navy blue (#1A3A5C) icon accents on light grey background',
+    'steel blue (#5B8DB8) icon accents on white background',
+    'sky blue (#87CEEB) icon accents on white background',
+    'deep blue (#1565C0) icon accents on white background'
+  ];
+
+  const moods = [
+    'bright and airy, high key lighting, clean whites',
+    'warm golden tones, soft morning light, cozy wellness',
+    'cool clinical tones, crisp whites and blues, premium medical',
+    'dramatic contrast, bold shadows, editorial fitness',
+    'soft pastel tones, feminine wellness aesthetic',
+    'neutral earthy tones, natural wellness, organic feel',
+    'luxury spa aesthetic, marble and white, high-end editorial'
+  ];
+
+  const scene = randPick(scenes);
+  const layout = randPick(layouts);
+  const color = randPick(colorStyles);
+  const mood = randPick(moods);
+
+  const benefitsMap = {
+    'Tirzepatide 10mg': ['Fat Loss Support', 'Appetite Control', 'Improved Fullness', 'Steady Energy'],
+    'Tirzepatide 20mg': ['Aggressive Fat Loss', 'Appetite Control', 'Metabolic Boost', 'Steady Energy'],
+    'Retatrutide 30mg': ['Triple Fat Burning', 'Appetite Control', 'Body Recomposition', 'Metabolic Reset'],
+    'Tesamorelin 10mg': ['Visceral Fat Loss', 'GH Stimulation', 'Body Composition', 'Lean Muscle'],
+    'CJC/IPA Blend 5mg/5mg': ['Deep Sleep', 'GH Release', 'Muscle Fullness', 'Fast Recovery'],
+    'Cagrilintide 5mg': ['Appetite Suppression', 'Portion Control', 'Reduced Cravings', 'Fat Loss'],
+    'BPC-157 10mg': ['Joint Healing', 'Gut Repair', 'Tendon Recovery', 'Anti-Inflammation'],
+    'NAD+ 100mg': ['Energy Boost', 'Brain Function', 'Cellular Repair', 'Longevity'],
+    'GHK-Cu 50mg': ['Skin Repair', 'Collagen Production', 'Anti-Aging', 'Wound Healing']
+  };
+
+  const benefits = benefitsMap[topic] || ['Fat Loss', 'Energy', 'Recovery', 'Wellness'];
+
+  return `Create a professional Instagram marketing graphic for "${topic}" by Straight Peptides. Background scene: ${scene}. Overall mood: ${mood}. Text layout: ${layout} Include bold title "${topic}" and these 4 benefits each with a small icon using ${color}: 1) "${benefits[0]}" 2) "${benefits[1]}" 3) "${benefits[2]}" 4) "${benefits[3]}". Leave the bottom right corner completely empty for a logo overlay. Photorealistic, Instagram square 1:1 format, premium wellness brand, no watermarks.`;
 }
 
 function buildPrompt() {
-  const topicSelect = document.getElementById('topic').value;
-  const topic = topicSelect === 'custom'
-    ? document.getElementById('custom-topic').value || 'peptide therapy'
-    : topicSelect || 'peptide therapy';
+  const topic = getTopic();
   const goal = document.getElementById('goal').value;
   const tone = document.getElementById('tone').value;
-  const context = document.getElementById('context').value;
-  const hashtags = getSelectedHashtags().join(' ');
+  const ctx = document.getElementById('context').value;
+  const tags = getTags() || '#peptides #wellness';
 
-  const platformInstructions = {
-    instagram: `Instagram captions: 150-300 words, strong opening hook (1-2 lines), 3-5 short punchy paragraphs with line breaks, end with a clear CTA (DM us, link in bio, comment below). Include ${hashtags || '#peptides #wellness'} at the end.`,
-    tiktok: `TikTok captions: 80-150 words, very punchy hook, casual and direct language, use line breaks, end with engagement hook ("Comment if you've tried this" / "Save this for later"). Include 5-7 hashtags from: ${hashtags || '#peptides #wellness'}.`,
-    both: `For EACH post, write TWO versions: one for Instagram (150-300 words, polished, CTA to DM) and one for TikTok (80-150 words, punchy, casual). Label each version clearly.`
+  const platInst = {
+    instagram: `Instagram: 100-180 words max. 1 punchy hook line, 2-3 short tight paragraphs, one clear CTA to DM. End with: ${tags}`,
+    tiktok: `TikTok: 60-100 words max. Ultra punchy first line, casual direct language, engagement CTA. 5 hashtags from: ${tags}`,
+    both: `Write two versions per post — label "INSTAGRAM:" (100-180 words, CTA to DM) and "TIKTOK:" (60-100 words, casual, punchy).`
   };
 
   const goalMap = {
-    educate: 'educate the audience about what this peptide does and its benefits',
-    sell: 'drive people to DM for a consultation — make them curious and wanting to know more',
-    testimonial: 'tell a relatable results story (3rd person, fictional client) that builds trust',
-    'myth-bust': 'bust a common myth or misconception about peptides or this topic',
-    hook: 'write a scroll-stopping hook-style post that gets saves and shares',
-    comparison: 'write a before vs after or "old way vs new way" comparison post'
+    educate: 'educate on what this peptide does and its top 2-3 benefits — keep it punchy not textbook',
+    sell: 'create curiosity and urgency to DM for a free consultation — make them feel like they are missing out',
+    testimonial: 'tell a short relatable fictional client story (3rd person) — real outcome, emotional resonance',
+    'myth-bust': 'call out one common myth about this peptide, bust it fast, establish authority',
+    hook: 'write a scroll-stopping hook post — first line must be impossible to scroll past, designed for saves',
+    comparison: 'old way vs peptide way — make the contrast obvious and compelling'
   };
 
   const toneMap = {
-    'confident-clinical': 'confident, authoritative, slightly clinical but accessible — like a knowledgeable expert talking to a friend',
-    conversational: 'warm, conversational, and relatable — like talking to a friend who happens to be an expert',
-    'bold-hype': 'bold, high-energy, TikTok-native language — direct, punchy, no fluff',
-    luxury: 'premium and elevated — this is elite biohacking, not drugstore supplements',
-    educational: 'educational breakdown style — teach them something they didn\'t know'
+    'confident-clinical': 'confident, direct, credible — expert who respects the reader\'s intelligence',
+    conversational: 'warm, real, relatable — friend who happens to know a lot about peptides',
+    'bold-hype': 'punchy, bold, no fluff — built for TikTok, reads fast, hits hard',
+    luxury: 'elevated, premium — this is elite optimization not drugstore wellness',
+    educational: 'clear breakdown, teach something new, earn trust through knowledge'
   };
 
-  return `You are a social media copywriter for Straight Peptides, a premium peptide sales business based in El Paso, TX. You write sales-oriented content that leads with client outcomes (fat loss, sleep, recovery, energy, muscle fullness) while maintaining scientific credibility. Never make exaggerated medical claims. Never mention specific prices.
+  return `You are a sharp social media copywriter for Straight Peptides — a premium peptide business in El Paso, TX (call/text 915-637-6443). Write punchy, benefit-first content. NO fluff. NO filler. Get in, deliver value, get out.
 
-Write exactly ${qty} social media post(s).
+PRODUCT KNOWLEDGE:
+- Tirzepatide (10mg, 20mg): Dual GIP/GLP-1. Clients feel full faster, stay full longer, eat same foods in smaller portions. Effects kick in Week 2-3. Early wins: inflammation drop, water weight loss. Weekly injection, painless insulin needle.
+- Retatrutide (30mg): Triple receptor agonist. Most aggressive fat loss option available.
+- Tesamorelin (10mg): GHRH peptide. Targets visceral belly fat specifically. Improves body comp.
+- CJC/IPA Blend (5mg/5mg): GH secretagogue. Deep sleep improvement, faster recovery, muscle fullness.
+- Cagrilintide (5mg): Amylin analog. Appetite suppressant. Reduces how much you want to eat.
+- BPC-157 (10mg): Body protection compound. Heals joints, tendons, gut lining. Fast recovery.
+- NAD+ (100mg): Cellular energy. Fights fatigue, supports longevity and brain function.
+- GHK-Cu (50mg): Copper peptide. Collagen production, skin repair, anti-aging.
+- All products come with full mixing and injection instructions. Simple process, clients are guided.
 
+Write exactly ${qty} post(s).
 Topic: ${topic}
 Goal: ${goalMap[goal]}
 Tone: ${toneMap[tone]}
-Platform format: ${platformInstructions[platform]}
-${context ? `Additional context: ${context}` : ''}
+Format: ${platInst[platform]}
+${ctx ? 'Context: ' + ctx : ''}
 
-IMPORTANT RULES:
-- Lead with outcomes and benefits, not mechanisms
-- Keep language accessible — no jargon unless briefly explained
-- Never make FDA-unapproved medical claims
-- Always include a soft CTA (DM us, reach out, ask us how)
+Hard rules:
+- First line must hook immediately — no warm-up
+- Every sentence must earn its place — cut anything generic
+- Outcomes first: fat loss, sleep, energy, recovery — not mechanisms
+- No corporate filler whatsoever
+- One soft CTA max (DM us / call or text 915-637-6443)
 - Business name: Straight Peptides
 
-Return ONLY the posts, numbered 1 through ${qty}. No preamble, no explanations. Just the post content.`;
+Return ONLY the numbered posts. No intro text.`;
 }
 
-function buildImagePrompt(topic, tone) {
-  const styleMap = {
-    'confident-clinical': 'clean medical wellness photography, professional, soft studio lighting',
-    conversational: 'warm lifestyle photography, natural light, relatable everyday setting',
-    'bold-hype': 'high energy fitness photography, dramatic lighting, bold colors',
-    luxury: 'luxury wellness aesthetic, minimalist, high-end editorial photography',
-    educational: 'clean infographic style, modern wellness visual, professional'
-  };
-  const style = styleMap[tone] || 'modern wellness photography';
-  return `${topic} peptide therapy wellness transformation, ${style}, fit healthy athletic person, no text, no labels, no watermark, photorealistic, 4k, instagram worthy social media post`;
-}
+let loadInterval;
 
-function getPollinationsUrl(prompt) {
-  const encoded = encodeURIComponent(prompt);
-  const seed = Math.floor(Math.random() * 999999);
-  return `https://image.pollinations.ai/prompt/${encoded}?width=1080&height=1080&seed=${seed}&nologo=true&enhance=true`;
-}
+async function generate() {
+  if (!document.getElementById('topic').value) { showErr('Please select a topic first.'); return; }
 
-let loadingInterval;
-
-async function generatePosts() {
-  const topic = document.getElementById('topic').value;
-  if (!topic) {
-    showError('Please select a topic first.');
-    return;
-  }
-
-  // UI state
   document.getElementById('gen-btn').disabled = true;
-  document.getElementById('error-msg').classList.remove('visible');
-  document.getElementById('results').classList.remove('visible');
-  document.getElementById('loading').classList.add('visible');
+  document.getElementById('err').classList.remove('show');
+  document.getElementById('results').classList.remove('show');
+  document.getElementById('loading').classList.add('show');
 
-  // Cycle loading messages
-  let msgIdx = 0;
-  document.getElementById('loading-text').textContent = loadingMessages[0];
-  loadingInterval = setInterval(() => {
-    msgIdx = (msgIdx + 1) % loadingMessages.length;
-    document.getElementById('loading-text').textContent = loadingMessages[msgIdx];
+  let mi = 0;
+  document.getElementById('load-txt').textContent = loadMsgs[0];
+  loadInterval = setInterval(() => {
+    mi = (mi+1) % loadMsgs.length;
+    document.getElementById('load-txt').textContent = loadMsgs[mi];
   }, 1800);
 
   try {
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_KEY}` },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1000,
-        messages: [{ role: "user", content: buildPrompt() }]
+        model: 'llama-3.3-70b-versatile',
+        max_tokens: 2000,
+        messages: [{ role: 'user', content: buildPrompt() }]
       })
     });
 
-    const data = await response.json();
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error?.message || 'API error');
+    renderCards(data.choices?.[0]?.message?.content || '');
 
-    if (!response.ok) throw new Error(data.error?.message || 'API error');
-
-    const text = data.content?.map(b => b.text || '').join('\n') || '';
-    renderPosts(text);
-
-  } catch (err) {
-    showError('Something went wrong: ' + err.message);
+  } catch(e) {
+    showErr('Something went wrong: ' + e.message);
   } finally {
-    clearInterval(loadingInterval);
-    document.getElementById('loading').classList.remove('visible');
+    clearInterval(loadInterval);
+    document.getElementById('loading').classList.remove('show');
     document.getElementById('gen-btn').disabled = false;
   }
 }
 
-function renderPosts(rawText) {
-  const container = document.getElementById('posts-container');
+function renderCards(raw) {
+  const container = document.getElementById('cards');
   container.innerHTML = '';
 
-  const blocks = rawText.split(/\n(?=\d+[\.\)])/g).filter(b => b.trim());
+  const blocks = raw.split(/\n(?=\d+[\.\)])/g).filter(b => b.trim());
+  if (!blocks.length) { showErr('No posts returned. Try again.'); return; }
 
-  if (!blocks.length) {
-    showError('No posts were generated. Please try again.');
-    return;
-  }
-
-  const topicSelect = document.getElementById('topic').value;
-  const topic = topicSelect === 'custom'
-    ? document.getElementById('custom-topic').value || 'peptide therapy'
-    : topicSelect || 'peptide therapy';
+  const topic = getTopic();
   const tone = document.getElementById('tone').value;
-
-  const platformLabel = platform === 'instagram' ? 'Instagram' : platform === 'tiktok' ? 'TikTok' : 'IG + TT';
+  const goal = document.getElementById('goal').value;
+  const platLabel = platform === 'instagram' ? 'Instagram' : platform === 'tiktok' ? 'TikTok' : 'IG + TT';
 
   blocks.forEach((block, i) => {
     const cleaned = block.replace(/^\d+[\.\)]\s*/, '').trim();
-
-    const hashtagMatch = cleaned.match(/(#\w+[\s#\w]*)+$/);
-    const hashtags = hashtagMatch ? hashtagMatch[0].trim() : '';
-    const bodyText = hashtags ? cleaned.replace(hashtags, '').trim() : cleaned;
-
-    const lines = bodyText.split('\n').filter(l => l.trim());
+    const tagMatch = cleaned.match(/((?:#\w+\s*)+)$/);
+    const tags = tagMatch ? tagMatch[0].trim() : '';
+    const body = tags ? cleaned.slice(0, cleaned.lastIndexOf(tags)).trim() : cleaned;
+    const lines = body.split('\n').filter(l => l.trim());
     const hook = lines[0] || '';
     const rest = lines.slice(1).join('\n');
+    const imgPrompt = buildImagePrompt(topic, tone, goal, i);
 
     const card = document.createElement('div');
     card.className = 'post-card';
-    card.style.animationDelay = (i * 0.07) + 's';
-
-    const badgeClass = platform === 'tiktok' ? 'badge-tt' : 'badge-ig';
-    const badgeIcon = platform === 'tiktok'
-      ? `<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.31 6.31 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.77a4.85 4.85 0 01-1.01-.08z"/></svg>`
-      : `<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>`;
-
-    // Generate unique image URL for this post
-    const imgPrompt = buildImagePrompt(topic, tone);
-    const imgUrl = getPollinationsUrl(imgPrompt);
-    const imgId = `img-${i}`;
-    const skeletonId = `skeleton-${i}`;
+    card.dataset.text = cleaned;
+    card.dataset.imgPrompt = imgPrompt;
 
     card.innerHTML = `
-      <div class="post-card-header">
+      <div class="post-hdr">
         <div class="post-meta">
-          <span class="post-number">POST ${i + 1}</span>
-          <span class="platform-badge ${badgeClass}">${badgeIcon} ${platformLabel}</span>
+          <span class="post-num">Post ${i+1}</span>
+          <span class="plat-badge">${platLabel}</span>
         </div>
-        <button class="copy-btn" onclick="copyPost(this, ${i})">Copy</button>
+        <button class="copy-btn" onclick="copyText(this, ${i})">Copy</button>
       </div>
-      <div class="post-image-wrap">
-        <div class="img-skeleton" id="${skeletonId}">
-          <div class="img-skeleton-bar"></div>
-          <span>Generating image...</span>
-        </div>
-        <img
-          id="${imgId}"
-          class="post-image loading"
-          src="${imgUrl}"
-          alt="Generated post image"
-          crossorigin="anonymous"
-        />
-        <div class="img-actions">
-          <a class="img-action-btn" href="${imgUrl}" download="straight-peptides-post-${i+1}.jpg" target="_blank">↓ Save</a>
-          <button class="img-action-btn" onclick="regenImage(${i}, '${escapeHtml(imgPrompt)}')">↺ New</button>
-        </div>
+      <div class="post-body">
+        ${hook ? `<div class="post-hook">${esc(hook)}</div>` : ''}
+        ${rest ? `<div class="post-text">${esc(rest)}</div>` : ''}
+        ${tags ? `<div class="post-tags">${esc(tags)}</div>` : ''}
       </div>
-      <div class="post-body" id="post-body-${i}">
-        ${hook ? `<div class="post-hook">${escapeHtml(hook)}</div>` : ''}
-        ${rest ? `<div class="post-content">${escapeHtml(rest)}</div>` : ''}
-        ${hashtags ? `<div class="post-hashtags">${escapeHtml(hashtags)}</div>` : ''}
+      <div class="img-prompt-section">
+        <div class="img-prompt-label">
+          Image Prompt for ChatGPT
+          <button class="copy-prompt-btn" onclick="copyPrompt(this, ${i})">Copy Prompt</button>
+        </div>
+        <div class="img-prompt-text">${esc(imgPrompt)}</div>
+        <div class="chatgpt-hint">→ Paste into ChatGPT and click Generate Image</div>
       </div>
     `;
 
-    card.dataset.fullText = cleaned;
     container.appendChild(card);
-
-    // Handle image load
-    const img = document.getElementById(imgId);
-    const skeleton = document.getElementById(skeletonId);
-    img.onload = () => {
-      img.classList.remove('loading');
-      img.classList.add('loaded');
-      skeleton.style.display = 'none';
-    };
-    img.onerror = () => {
-      skeleton.innerHTML = '<span style="color:var(--muted);font-size:0.75rem;">Image unavailable — try regenerating</span>';
-    };
   });
 
   document.getElementById('results-count').textContent = `${blocks.length} post${blocks.length !== 1 ? 's' : ''} generated`;
-  document.getElementById('results').classList.add('visible');
+  document.getElementById('results').classList.add('show');
   document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function regenImage(idx, prompt) {
-  const imgId = `img-${idx}`;
-  const skeletonId = `skeleton-${idx}`;
-  const img = document.getElementById(imgId);
-  const skeleton = document.getElementById(skeletonId);
-
-  img.classList.add('loading');
-  img.classList.remove('loaded');
-  skeleton.style.display = 'flex';
-  skeleton.innerHTML = '<div class="img-skeleton-bar"></div><span>Generating image...</span>';
-
-  const newUrl = getPollinationsUrl(prompt);
-  img.src = newUrl;
-
-  img.onload = () => {
-    img.classList.remove('loading');
-    img.classList.add('loaded');
-    skeleton.style.display = 'none';
-  };
-  img.onerror = () => {
-    skeleton.innerHTML = '<span style="color:var(--muted);font-size:0.75rem;">Image unavailable — try again</span>';
-  };
-}
-
-function escapeHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-function copyPost(btn, idx) {
-  const card = document.querySelectorAll('.post-card')[idx];
-  const text = card.dataset.fullText || '';
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = '✓ Copied!';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = 'Copy';
-      btn.classList.remove('copied');
-    }, 2000);
+function copyText(btn, i) {
+  const card = document.querySelectorAll('.post-card')[i];
+  navigator.clipboard.writeText(card.dataset.text || '').then(() => {
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('done');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('done'); }, 2000);
   });
 }
 
-function showError(msg) {
-  const el = document.getElementById('error-msg');
+function copyPrompt(btn, i) {
+  const card = document.querySelectorAll('.post-card')[i];
+  navigator.clipboard.writeText(card.dataset.imgPrompt || '').then(() => {
+    btn.textContent = 'Copied ✓';
+    btn.classList.add('done');
+    setTimeout(() => { btn.textContent = 'Copy Prompt'; btn.classList.remove('done'); }, 2000);
+  });
+}
+
+function esc(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function showErr(msg) {
+  const el = document.getElementById('err');
   el.textContent = msg;
-  el.classList.add('visible');
+  el.classList.add('show');
 }
 </script>
 </body>
