@@ -704,7 +704,7 @@ function buildImagePrompt(topic, tone, goal, index) {
 
   const benefits = benefitsMap[topic] || ['Fat Loss', 'Energy', 'Recovery', 'Wellness'];
 
-  return `Create a professional Instagram marketing graphic for "${topic}" by Straight Peptides. Background scene: ${scene}. Overall mood: ${mood}. IMPORTANT COMPOSITION RULE: Place ALL content (photo subject, text, title, benefits) on the RIGHT 70% of the image. The LEFT 20% of the image must be completely empty — plain background, no subject, no text, no elements — just clean open space. This allows cropping of the left edge. Text layout: all text and benefit icons are on the right side. Include bold title "${topic}" and these 4 benefits each with a small icon using ${color}: 1) "${benefits[0]}" 2) "${benefits[1]}" 3) "${benefits[2]}" 4) "${benefits[3]}". Photorealistic, Instagram square 1:1 format, premium wellness brand, no watermarks.`;
+  return `Create a professional Instagram marketing graphic for "${topic}" by Straight Peptides. Background scene: ${scene}. Overall mood: ${mood}. COMPOSITION: Place the photo subject and background on the LEFT and CENTER of the image. Place all text (title + benefits) in a clean panel on the RIGHT side or BOTTOM RIGHT. The absolute BOTTOM RIGHT corner (roughly 15% x 15% of the image) must be completely plain — no text, no icons, no subject, just clean background — so a logo can be placed there. Include bold title "${topic}" and these 4 benefits each with a small icon using ${color}: 1) "${benefits[0]}" 2) "${benefits[1]}" 3) "${benefits[2]}" 4) "${benefits[3]}". Photorealistic, Instagram square 1:1 format, premium wellness brand, no watermarks.`;
 }
 
 function buildPrompt() {
