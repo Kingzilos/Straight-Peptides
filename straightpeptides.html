@@ -1858,15 +1858,34 @@ function removePdf(productId) {
 }
 
 /* ── PDF VIEWER (async, checks IndexedDB first) ─────────────── */
+function isMobile() {
+  return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 700;
+}
+
 function pdfMissingHtml(p) {
   var isAdmin = document.body.classList.contains('admin-mode');
   return '<div class="pdf-missing">' +
-    '<strong>Guide not yet uploaded</strong>' +
+    '<strong>Guide not yet available</strong>' +
     '<div style="margin-top:8px;">The ' + esc(p.name) + ' ' + esc(p.strength) + ' guide hasn\'t been uploaded yet.</div>' +
     (isAdmin
       ? '<div style="margin-top:14px;"><button class="btn btn-primary" style="padding:11px 22px;" onclick="closeModal(); setTimeout(function(){ editProduct(\'' + esc(p.id) + '\'); }, 200);">Upload PDF Now</button></div>'
       : '<div style="margin-top:12px;">Email <a href="mailto:straightpeptides@gmail.com">straightpeptides@gmail.com</a> or <a href="https://www.instagram.com/straight.peptides/" target="_blank">DM us on Instagram</a> for protocol questions.</div>') +
   '</div>';
+}
+
+function pdfViewHtml(src, p, note) {
+  if (isMobile()) {
+    // iOS Safari can't render PDFs in iframes — give a big tap-to-open button
+    return '<div style="text-align:center; padding:40px 20px;">' +
+      '<div style="font-size:48px; margin-bottom:16px;">&#128196;</div>' +
+      '<div style="font-size:16px; font-weight:600; color:var(--navy); margin-bottom:6px;">' + esc(p.name) + ' ' + esc(p.strength) + '</div>' +
+      '<div style="font-size:13px; color:var(--mid-gray); margin-bottom:20px;">Product Guide</div>' +
+      '<a href="' + src + '" target="_blank" class="btn btn-primary" style="display:inline-block; padding:14px 32px; font-size:15px; text-decoration:none;">Open Guide</a>' +
+      (note ? '<div style="margin-top:12px; font-size:12px; color:var(--mid-gray);">' + note + '</div>' : '') +
+    '</div>';
+  }
+  return '<iframe class="pdf-frame" src="' + src + '" title="' + esc(p.name) + ' ' + esc(p.strength) + ' Guide"></iframe>' +
+    (note ? '<div style="margin-top:10px; font-size:12px; color: var(--mid-gray);">' + note + '</div>' : '');
 }
 
 function openPdfViewerAsync(id) {
@@ -1882,16 +1901,19 @@ function openPdfViewerAsync(id) {
       // Clean up any previous blob URL
       if (_activeBlobUrl) { URL.revokeObjectURL(_activeBlobUrl); _activeBlobUrl = null; }
       _activeBlobUrl = URL.createObjectURL(record.blob);
-      var html =
-        '<iframe class="pdf-frame" src="' + _activeBlobUrl + '" title="' + esc(p.name) + ' ' + esc(p.strength) + ' Guide"></iframe>' +
-        '<div style="margin-top:10px; font-size:12px; color: var(--mid-gray);">PDF loaded from stored upload.</div>';
-      document.getElementById('modal-body').innerHTML = html;
+      document.getElementById('modal-body').innerHTML = pdfViewHtml(_activeBlobUrl, p, 'Loaded from stored upload.');
+    } else if (p.pdf) {
+      // Fallback to file path (works when PDFs are in the same repo/folder)
+      document.getElementById('modal-body').innerHTML = pdfViewHtml(esc(p.pdf), p, 'If the PDF does not display, <a href="' + esc(p.pdf) + '" target="_blank">open it in a new tab</a>.');
     } else {
-      // No stored PDF — show friendly message instead of 404 iframe
       document.getElementById('modal-body').innerHTML = pdfMissingHtml(p);
     }
   }).catch(function() {
-    document.getElementById('modal-body').innerHTML = pdfMissingHtml(p);
+    if (p.pdf) {
+      document.getElementById('modal-body').innerHTML = pdfViewHtml(esc(p.pdf), p, '');
+    } else {
+      document.getElementById('modal-body').innerHTML = pdfMissingHtml(p);
+    }
   });
 }
 
