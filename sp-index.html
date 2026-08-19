@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Straight Peptides — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+  :root {
+    --bg: #f5f7fa; --surface: #ffffff; --ink: #1a3a5c; --secondary: #4a4a5a;
+    --tertiary: #8a8a9a; --border: #e3e8ef; --accent: #2e7ab5; --accent-hover: #1a3a5c;
+    --green: #16a34a; --green-soft: #dcfce7; --red: #c0392b; --amber: #d97706;
+  }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--secondary); min-height: 100vh; }
+
+  /* ── NAV ─────────────────────────────────────────────── */
+  nav {
+    background: rgba(255,255,255,0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border); padding: 0 48px; height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-brand { display: flex; align-items: center; gap: 10px; }
+  .nav-mark {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--ink), var(--accent));
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 700; font-size: 12px; letter-spacing: 0.02em;
+  }
+  .nav-name { font-size: 0.88rem; font-weight: 600; color: var(--ink); letter-spacing: -0.01em; }
+  .nav-right { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: var(--tertiary); }
+  .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+
+  /* ── HERO ────────────────────────────────────────────── */
+  .hero { max-width: 980px; margin: 0 auto; padding: 72px 24px 44px; text-align: center; }
+  .hero-eyebrow {
+    font-size: 0.76rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 700; letter-spacing: -0.03em;
+    line-height: 1.1; color: var(--ink); margin-bottom: 14px;
+  }
+  .hero p { font-size: 1rem; font-weight: 400; color: var(--tertiary); line-height: 1.6; max-width: 520px; margin: 0 auto; }
+
+  /* ── GRID ────────────────────────────────────────────── */
+  .tools { max-width: 980px; margin: 0 auto; padding: 0 24px 80px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  @media (max-width: 640px) { .tools { grid-template-columns: 1fr; } nav { padding: 0 20px; } }
+
+  /* ── CARD ────────────────────────────────────────────── */
+  .card {
+    background: var(--surface); border-radius: 16px; padding: 32px 28px; text-decoration: none;
+    color: inherit; display: flex; flex-direction: column; gap: 8px;
+    border: 1px solid transparent; transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+    position: relative;
+  }
+  .card:hover { box-shadow: 0 8px 32px rgba(26,58,92,0.08); transform: translateY(-2px); border-color: var(--border); }
+  .card-header { display: flex; align-items: flex-start; justify-content: space-between; }
+  .card-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: linear-gradient(135deg, #f0f4f8, #e8eef5);
+    display: flex; align-items: center; justify-content: center; margin-bottom: 4px;
+  }
+  .card-icon svg { width: 18px; height: 18px; stroke: var(--accent); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .card-label { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--tertiary); }
+  .card h2 { font-size: 1.1rem; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); line-height: 1.2; }
+  .card p { font-size: 0.83rem; color: var(--secondary); line-height: 1.55; flex: 1; }
+  .card-link { font-size: 0.82rem; font-weight: 500; color: var(--accent); display: flex; align-items: center; gap: 4px; margin-top: 4px; }
+  .card-link svg { width: 13px; height: 13px; stroke: var(--accent); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.2s ease; }
+  .card:hover .card-link svg { transform: translateX(3px); }
+
+  .remove-btn { background: none; border: none; cursor: pointer; padding: 4px; border-radius: 6px; color: var(--tertiary); font-size: 16px; line-height: 1; transition: color 0.15s, opacity 0.15s; opacity: 0; }
+  .card:hover .remove-btn { opacity: 1; }
+  .remove-btn:hover { color: var(--red) !important; }
+
+  /* ── RESTORE BAR ────────────────────────────────────── */
+  .restore-bar { max-width: 980px; margin: -48px auto 48px; padding: 0 24px; text-align: center; }
+  .restore-link { font-size: 0.82rem; color: var(--tertiary); cursor: pointer; text-decoration: none; transition: color 0.15s; }
+  .restore-link:hover { color: var(--accent); }
+
+  /* ── MODALS ─────────────────────────────────────────── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(26,58,92,0.3);
+    backdrop-filter: blur(4px); z-index: 200; align-items: center; justify-content: center;
+  }
+  .modal-box {
+    background: #fff; border-radius: 18px; padding: 36px 32px; width: 100%; max-width: 480px;
+    margin: 24px; box-shadow: 0 24px 64px rgba(26,58,92,0.12);
+  }
+  .modal-box h3 { font-size: 1.05rem; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 4px; }
+  .modal-box .modal-sub { font-size: 0.83rem; color: var(--tertiary); margin-bottom: 24px; line-height: 1.5; }
+
+  .field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 12px; }
+  .field label { font-size: 0.73rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tertiary); }
+  .field input {
+    padding: 9px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+    font-family: inherit; font-size: 0.83rem; color: var(--ink); outline: none; transition: border-color 0.2s;
+  }
+  .field input:focus { border-color: var(--accent); }
+
+  .modal-btns { display: flex; gap: 10px; margin-top: 24px; }
+  .btn-accent {
+    flex: 1; padding: 10px 20px; background: var(--accent); color: #fff; border: none; border-radius: 10px;
+    font-family: inherit; font-size: 0.83rem; font-weight: 500; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-accent:hover { background: var(--accent-hover); }
+  .btn-muted {
+    padding: 10px 20px; background: var(--bg); color: var(--tertiary); border: 1px solid var(--border);
+    border-radius: 10px; font-family: inherit; font-size: 0.83rem; font-weight: 500; cursor: pointer;
+  }
+
+  /* ── RESTORE MODAL ──────────────────────────────────── */
+  .restore-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .restore-item:last-child { border-bottom: none; }
+  .restore-item-name { font-size: 0.88rem; font-weight: 500; color: var(--ink); }
+  .restore-item-label { font-size: 0.72rem; color: var(--tertiary); margin-top: 2px; }
+  .restore-btn {
+    padding: 5px 14px; background: var(--accent); color: #fff; border: none; border-radius: 8px;
+    font-family: inherit; font-size: 0.78rem; font-weight: 500; cursor: pointer;
+  }
+  .restore-btn:hover { background: var(--accent-hover); }
+
+  /* ── FOOTER ─────────────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--border); padding: 24px 48px; display: flex;
+    justify-content: space-between; font-size: 0.75rem; color: var(--tertiary);
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { color: var(--ink); }
+
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="nav-mark">SP</div>
+    <span class="nav-name">Straight Peptides</span>
+  </div>
+  <div class="nav-right"><div class="sync-dot"></div><span id="sync-label">Synced</span></div>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">True in Health · Unlocking Human Potential</div>
+  <h1>Straight Peptides</h1>
+  <p>Your product catalog, guides, and resources — all in one place. Access from any device.</p>
+</div>
+
+<div class="tools" id="tools-grid"></div>
+
+<div class="restore-bar" id="restore-bar" style="display:none;">
+  <a class="restore-link" onclick="openRestoreModal()">
+    <span id="restore-count"></span> hidden card(s) — restore
+  </a>
+</div>
+
+<!-- ADD CARD MODAL -->
+<div id="add-modal" class="modal-overlay" onclick="if(event.target===this)closeAddModal()">
+  <div class="modal-box">
+    <h3>Add a Card</h3>
+    <p class="modal-sub">It'll appear on your dashboard and sync across all your devices.</p>
+    <div class="field">
+      <label>Label (category)</label>
+      <input id="new-label" type="text" placeholder="e.g. Guide, Resource, Tool">
+    </div>
+    <div class="field">
+      <label>Card Name</label>
+      <input id="new-name" type="text" placeholder="e.g. Tirzepatide Guide">
+    </div>
+    <div class="field">
+      <label>Description</label>
+      <input id="new-desc" type="text" placeholder="One line about what it is">
+    </div>
+    <div class="field">
+      <label>URL</label>
+      <input id="new-url" type="text" placeholder="https://...">
+    </div>
+    <div class="modal-btns">
+      <button class="btn-accent" onclick="saveNewCard()">Add Card</button>
+      <button class="btn-muted" onclick="closeAddModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESTORE MODAL -->
+<div id="restore-modal" class="modal-overlay" onclick="if(event.target===this)closeRestoreModal()">
+  <div class="modal-box">
+    <h3>Hidden Cards</h3>
+    <p class="modal-sub">Restore any card back to the dashboard.</p>
+    <div id="restore-list"></div>
+    <div style="margin-top:20px;text-align:right;">
+      <button class="btn-muted" onclick="closeRestoreModal()">Done</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span>Straight Peptides · <a href="mailto:straightpeptides@gmail.com">straightpeptides@gmail.com</a></span>
+  <span id="footer-date"></span>
+</footer>
+
+<script>
+  // ============ Supabase Config ============
+  const SB_URL  = 'https://jbqvtnukspnlpxgosmhp.supabase.co';
+  const SB_KEY  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpicXZ0bnVrc3BubHB4Z29zbWhwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyNzU0NjcsImV4cCI6MjA4ODg1MTQ2N30.0EvUKNrSbH2UkQPEkTWXKS8PGNVr4G0dvWoJp9HBROs';
+  const STORAGE_KEY   = 'sp_dashboard_custom';
+  const LOCAL_KEY     = 'sp_dashboard_local';
+  const LOCAL_UPD_KEY = 'sp_dashboard_local_updated';
+
+  // ============ Default Cards ============
+  const DEFAULT_CARDS = [
+    {
+      id: 'catalog',
+      label: 'Catalog',
+      name: 'Product Catalog',
+      desc: 'Full peptide lineup — availability, vial sizes, status, and product details.',
+      url: 'https://kingzilos.github.io/Straight-Peptides/straightpeptides.html',
+      icon: '<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>'
+    },
+    {
+      id: 'education',
+      label: 'Education',
+      name: 'Education Center',
+      desc: 'What each peptide is, what it does, what to expect, side effects, and how to manage them.',
+      url: 'https://kingzilos.github.io/Straight-Peptides/straightpeptides.html#education',
+      icon: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>'
+    },
+    {
+      id: 'instagram',
+      label: 'Social',
+      name: 'Instagram',
+      desc: 'Follow @straight.peptides for updates, product drops, and education posts.',
+      url: 'https://www.instagram.com/straight.peptides/',
+      icon: '<rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>'
+    },
+    {
+      id: 'email',
+      label: 'Contact',
+      name: 'Email Us',
+      desc: 'Questions about products, pricing, kits, or protocols? Reach us directly.',
+      url: 'mailto:straightpeptides@gmail.com',
+      icon: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>'
+    }
+  ];
+
+  let customCards = [];
+  let hiddenDefaults = [];
+  let saveTimer = null;
+  let savePending = false;
+  let lastSyncError = null;
+
+  // ============ Supabase Fetch ============
+  async function sbFetch(opts = {}) {
+    const { filter, method = 'GET', body, prefer } = opts;
+    let url = `${SB_URL}/rest/v1/kv_store?select=*`;
+    if (filter) url += `&${filter}`;
+    const headers = {
+      'apikey': SB_KEY,
+      'Authorization': `Bearer ${SB_KEY}`,
+      'Content-Type': 'application/json'
+    };
+    if (prefer) headers['Prefer'] = prefer;
+    else if (method === 'POST') headers['Prefer'] = 'return=representation';
+    const res = await fetch(url, { method, headers, body: body ? JSON.stringify(body) : undefined });
+    if (!res.ok) {
+      const errText = await res.text().catch(() => '');
+      throw new Error('Supabase ' + res.status + (errText ? ': ' + errText.slice(0,200) : ''));
+    }
+    if (res.status === 204) return null;
+    const text = await res.text();
+    return text ? JSON.parse(text) : null;
+  }
+
+  // ============ Sync Status ============
+  function setSync(mode, label, err) {
+    const dot = document.querySelector('.sync-dot');
+    const lbl = document.getElementById('sync-label');
+    if (!dot || !lbl) return;
+    lbl.textContent = label;
+    if (mode === 'synced')  { dot.style.background = 'var(--green)'; dot.style.animation = ''; lastSyncError = null; }
+    if (mode === 'saving')  { dot.style.background = 'var(--accent)'; dot.style.animation = 'pulse 0.9s ease-in-out infinite'; }
+    if (mode === 'local')   { dot.style.background = 'var(--amber)'; dot.style.animation = ''; lastSyncError = err || null; }
+    if (mode === 'loading') { dot.style.background = 'var(--tertiary)'; dot.style.animation = ''; }
+  }
+
+  document.querySelector('.nav-right')?.addEventListener('click', function() {
+    if (lastSyncError) {
+      alert('Cloud sync failed:\n\n' + (lastSyncError.message || String(lastSyncError)) + '\n\nYour cards are saved locally. Other devices won\'t see them until sync is restored.');
+    }
+  });
+
+  // ============ Local Storage ============
+  function getLocalState() {
+    try { const raw = localStorage.getItem(LOCAL_KEY); return raw ? JSON.parse(raw) : null; }
+    catch { return null; }
+  }
+  function setLocalState() {
+    const state = { tools: customCards, hidden: hiddenDefaults, updated: new Date().toISOString() };
+    localStorage.setItem(LOCAL_KEY, JSON.stringify(state));
+    localStorage.setItem(LOCAL_UPD_KEY, state.updated);
+  }
+
+  // ============ Load / Save ============
+  async function loadData() {
+    setSync('loading', 'Loading…');
+    const local = getLocalState();
+    const localTime = localStorage.getItem(LOCAL_UPD_KEY) || '';
+    let localCards = [], localHidden = [];
+    if (local) {
+      if (Array.isArray(local)) { localCards = local; }
+      else { localCards = Array.isArray(local.tools) ? local.tools : []; localHidden = Array.isArray(local.hidden) ? local.hidden : []; }
+    }
+    try {
+      const rows = await sbFetch({ filter: `key=eq.${STORAGE_KEY}` });
+      if (rows && rows.length > 0) {
+        rows.sort((a, b) => ((b.value && b.value.updated) || '').localeCompare((a.value && a.value.updated) || ''));
+        const latest = rows[0];
+        const cloudTime = (latest.value && latest.value.updated) || '';
+        const cloudCards = (latest.value && Array.isArray(latest.value.tools)) ? latest.value.tools : null;
+        const cloudHidden = (latest.value && Array.isArray(latest.value.hidden)) ? latest.value.hidden : [];
+        if (localCards.length && localTime && localTime > cloudTime) {
+          customCards = localCards; hiddenDefaults = localHidden;
+          setSync('synced', 'Synced'); saveData(true); return;
+        }
+        if (cloudCards) { customCards = cloudCards; hiddenDefaults = cloudHidden; setSync('synced', 'Synced'); return; }
+      }
+      customCards = localCards; hiddenDefaults = localHidden;
+      if (customCards.length > 0 || hiddenDefaults.length > 0) await saveData(true);
+      else setSync('synced', 'Synced');
+    } catch (e) {
+      console.warn('Cloud load failed; using local cache', e);
+      customCards = localCards; hiddenDefaults = localHidden;
+      setSync('local', 'Local only', e);
+    }
+  }
+
+  function saveData(immediate = false) {
+    setLocalState();
+    clearTimeout(saveTimer);
+    savePending = true;
+    setSync('saving', 'Saving…');
+    const doSave = async () => {
+      try {
+        await sbFetch({
+          method: 'POST',
+          body: { key: STORAGE_KEY, value: { tools: customCards, hidden: hiddenDefaults, updated: new Date().toISOString() } },
+          prefer: 'resolution=merge-duplicates,return=minimal'
+        });
+        savePending = false; setSync('synced', 'Synced');
+      } catch (e) { console.warn('Cloud save failed', e); savePending = false; setSync('local', 'Local only', e); }
+    };
+    if (immediate) return doSave();
+    saveTimer = setTimeout(doSave, 150);
+  }
+
+  function flushPendingSave() {
+    if (!savePending) return;
+    clearTimeout(saveTimer);
+    try {
+      fetch(`${SB_URL}/rest/v1/kv_store`, {
+        method: 'POST',
+        headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'resolution=merge-duplicates,return=minimal' },
+        body: JSON.stringify({ key: STORAGE_KEY, value: { tools: customCards, hidden: hiddenDefaults, updated: new Date().toISOString() } }),
+        keepalive: true
+      });
+    } catch { /* page unloading */ }
+  }
+  window.addEventListener('beforeunload', flushPendingSave);
+  window.addEventListener('pagehide', flushPendingSave);
+  document.addEventListener('visibilitychange', async () => {
+    if (document.visibilityState === 'visible' && !savePending) { await loadData(); renderAll(); }
+  });
+
+  // ============ Rendering ============
+  function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+
+  function buildCard(card, removeHandler) {
+    const a = document.createElement('a');
+    a.className = 'card';
+    a.href = card.url;
+    if (card.url && !card.url.startsWith('mailto:')) a.target = '_blank';
+    a.innerHTML =
+      '<div class="card-header">' +
+        '<div class="card-icon"><svg viewBox="0 0 24 24">' + (card.icon || '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>') + '</svg></div>' +
+        '<button class="remove-btn" title="Remove from dashboard">&times;</button>' +
+      '</div>' +
+      '<div class="card-label">' + esc(card.label) + '</div>' +
+      '<h2>' + esc(card.name) + '</h2>' +
+      '<p>' + esc(card.desc) + '</p>' +
+      '<div class="card-link">Open <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></div>';
+    a.querySelector('.remove-btn').addEventListener('click', function(e) {
+      e.preventDefault(); e.stopPropagation(); removeHandler(e);
+    });
+    return a;
+  }
+
+  function renderAll() {
+    const grid = document.getElementById('tools-grid');
+    grid.innerHTML = '';
+
+    // Default cards (skip hidden)
+    DEFAULT_CARDS.forEach(card => {
+      if (hiddenDefaults.includes(card.id)) return;
+      const el = buildCard(card, () => {
+        if (!confirm('Hide "' + card.name + '" from the dashboard?\n\nYou can restore it anytime.')) return;
+        hiddenDefaults.push(card.id);
+        saveData(); renderAll();
+      });
+      grid.appendChild(el);
+    });
+
+    // Custom cards
+    customCards.forEach((card, idx) => {
+      const el = buildCard(card, () => {
+        if (!confirm('Remove "' + (card.name || 'this card') + '" from the dashboard?')) return;
+        customCards.splice(idx, 1);
+        saveData(); renderAll();
+      });
+      grid.appendChild(el);
+    });
+
+    // Add Card
+    const addCard = document.createElement('div');
+    addCard.className = 'card';
+    addCard.onclick = openAddModal;
+    addCard.style.cssText = 'cursor:pointer;border:1.5px dashed var(--border);background:transparent;align-items:center;justify-content:center;min-height:180px;gap:8px;text-align:center;';
+    addCard.innerHTML =
+      '<div style="width:36px;height:36px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;">' +
+        '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>' +
+      '</div>' +
+      '<span style="font-size:0.83rem;font-weight:500;color:var(--accent);">Add Card</span>';
+    grid.appendChild(addCard);
+
+    // Restore bar
+    const bar = document.getElementById('restore-bar');
+    if (hiddenDefaults.length > 0) {
+      document.getElementById('restore-count').textContent = hiddenDefaults.length;
+      bar.style.display = 'block';
+    } else { bar.style.display = 'none'; }
+  }
+
+  // ============ Add Card Modal ============
+  function openAddModal() {
+    document.getElementById('add-modal').style.display = 'flex';
+    setTimeout(() => document.getElementById('new-name').focus(), 50);
+  }
+  function closeAddModal() {
+    document.getElementById('add-modal').style.display = 'none';
+    ['new-label','new-name','new-desc','new-url'].forEach(id => document.getElementById(id).value = '');
+  }
+  function saveNewCard() {
+    const label = document.getElementById('new-label').value.trim();
+    const name  = document.getElementById('new-name').value.trim();
+    const desc  = document.getElementById('new-desc').value.trim();
+    const url   = document.getElementById('new-url').value.trim();
+    if (!name || !url) { alert('Card name and URL are required.'); return; }
+    customCards.push({ label: label || 'Link', name, desc, url });
+    saveData(); renderAll(); closeAddModal();
+  }
+
+  // ============ Restore Modal ============
+  function openRestoreModal() {
+    const list = document.getElementById('restore-list');
+    list.innerHTML = '';
+    hiddenDefaults.forEach(id => {
+      const card = DEFAULT_CARDS.find(c => c.id === id);
+      if (!card) return;
+      const row = document.createElement('div');
+      row.className = 'restore-item';
+      row.innerHTML =
+        '<div><div class="restore-item-name">' + esc(card.name) + '</div><div class="restore-item-label">' + esc(card.label) + '</div></div>' +
+        '<button class="restore-btn" data-id="' + esc(id) + '">Restore</button>';
+      row.querySelector('.restore-btn').addEventListener('click', () => {
+        hiddenDefaults = hiddenDefaults.filter(h => h !== id);
+        saveData(); renderAll(); openRestoreModal();
+      });
+      list.appendChild(row);
+    });
+    if (!hiddenDefaults.length) { closeRestoreModal(); return; }
+    document.getElementById('restore-modal').style.display = 'flex';
+  }
+  function closeRestoreModal() { document.getElementById('restore-modal').style.display = 'none'; }
+
+  // ============ Init ============
+  window.addEventListener('DOMContentLoaded', async () => {
+    document.getElementById('footer-date').textContent = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    await loadData();
+    renderAll();
+  });
+</script>
+</body>
+</html>
