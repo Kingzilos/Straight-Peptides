@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Straight Peptides — True in Health. Unlocking Human Potential.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:        #1a3a5c;
+    --steel:       #2e7ab5;
+    --sky:         #4a9fd4;
+    --slate:       #4a4a5a;
+    --mid-gray:    #8a8a9a;
+    --ice:         #f0f4f8;
+    --silver:      #e8eef5;
+    --bg:          #f5f7fa;
+    --card:        #ffffff;
+    --border:      #e3e8ef;
+    --green:       #16a34a;
+    --green-soft:  #dcfce7;
+    --red:         #c0392b;
+    --red-soft:    #fee2e2;
+    --amber:       #d97706;
+    --amber-soft:  #fef3c7;
+    --shadow-sm:   0 1px 2px rgba(26,58,92,0.04), 0 1px 3px rgba(26,58,92,0.06);
+    --shadow-md:   0 4px 6px rgba(26,58,92,0.05), 0 10px 15px rgba(26,58,92,0.08);
+    --shadow-lg:   0 10px 25px rgba(26,58,92,0.10), 0 20px 40px rgba(26,58,92,0.12);
+    --radius:      16px;
+    --radius-sm:   10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--slate);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  a { color: var(--steel); text-decoration: none; }
+  a:hover { color: var(--navy); }
+
+  /* ── HEADER ──────────────────────────────────────────────── */
+  .topbar {
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 18px 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+  }
+  .topbar-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand-mark {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--navy), var(--steel));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.02em;
+  }
+  .brand-text { display: flex; flex-direction: column; }
+  .brand-name {
+    font-weight: 700;
+    color: var(--navy);
+    font-size: 16px;
+    letter-spacing: 0.04em;
+  }
+  .brand-tag {
+    font-size: 10px;
+    color: var(--steel);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-top: 1px;
+  }
+  .top-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .email-pill {
+    background: var(--ice);
+    color: var(--navy);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 13px;
+    border: 1px solid var(--border);
+  }
+  .email-pill:hover { background: var(--silver); color: var(--navy); }
+
+  /* ── TABS ────────────────────────────────────────────────── */
+  .tabs {
+    max-width: 1240px;
+    margin: 28px auto 0;
+    padding: 0 32px;
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .tab {
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--slate);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .tab:hover { background: var(--silver); color: var(--navy); }
+  .tab.active {
+    background: var(--navy);
+    color: #fff;
+    font-weight: 600;
+  }
+
+  /* ── PAGE ────────────────────────────────────────────────── */
+  .page {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 24px 32px 80px;
+  }
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  .hero {
+    background: linear-gradient(135deg, #fff 0%, #f0f4f8 100%);
+    border-radius: var(--radius);
+    padding: 36px 40px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 32px;
+    border: 1px solid var(--border);
+  }
+  .hero h1 {
+    font-size: 28px;
+    color: var(--navy);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  .hero p {
+    color: var(--slate);
+    font-size: 15px;
+    max-width: 720px;
+  }
+
+  /* ── SECTION HEADERS ─────────────────────────────────────── */
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin: 36px 0 16px;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .section-title {
+    font-size: 20px;
+    color: var(--navy);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .section-sub {
+    font-size: 13px;
+    color: var(--mid-gray);
+  }
+
+  /* ── GRID ────────────────────────────────────────────────── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  /* ── PRODUCT CARD ────────────────────────────────────────── */
+  .card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 22px 22px 20px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.18s ease;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid var(--border);
+  }
+  .card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  .card-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .card-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.3;
+  }
+  .card-strength {
+    font-size: 12px;
+    color: var(--mid-gray);
+    margin-top: 3px;
+    font-weight: 500;
+  }
+  .status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-top: 8px;
+    align-self: flex-start;
+  }
+  .status-available { background: var(--green-soft); color: var(--green); }
+  .status-out       { background: var(--red-soft);   color: var(--red); }
+  .status-coming    { background: var(--amber-soft); color: var(--amber); }
+
+  .card-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    border: none;
+    background: var(--ice);
+    color: var(--navy);
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+    flex: 1;
+    min-width: 0;
+  }
+  .btn:hover { background: var(--silver); }
+  .btn-primary {
+    background: var(--navy);
+    color: #fff;
+  }
+  .btn-primary:hover { background: #122a44; color: #fff; }
+  .btn-ghost {
+    background: transparent;
+    color: var(--mid-gray);
+    flex: 0 1 auto;
+    padding: 9px 12px;
+  }
+  .btn-ghost:hover { color: var(--navy); background: var(--ice); }
+  .btn-danger {
+    background: var(--red-soft);
+    color: var(--red);
+  }
+  .btn-danger:hover { background: #fecaca; }
+
+  /* ── CTA BANNERS ─────────────────────────────────────────── */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--steel) 100%);
+    color: #fff;
+    padding: 24px 28px;
+    border-radius: var(--radius);
+    margin: 24px 0;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .cta-banner p {
+    font-size: 15px;
+    line-height: 1.5;
+    flex: 1;
+    min-width: 240px;
+  }
+  .cta-banner strong { font-weight: 700; }
+  .cta-banner a.email-btn {
+    background: #fff;
+    color: var(--navy);
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  .cta-banner a.email-btn:hover { background: var(--ice); color: var(--navy); }
+
+  .info-banner {
+    background: var(--card);
+    border-left: 3px solid var(--steel);
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    margin: 16px 0;
+    font-size: 13px;
+    color: var(--slate);
+    box-shadow: var(--shadow-sm);
+  }
+  .info-banner strong { color: var(--navy); }
+
+  /* ── BUNDLES PLACEHOLDER ─────────────────────────────────── */
+  .empty-state {
+    background: var(--card);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--mid-gray);
+  }
+  .empty-state h3 {
+    color: var(--navy);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .empty-state p { font-size: 13px; }
+
+  /* ── EDUCATION DETAIL ────────────────────────────────────── */
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  .edu-block {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+  }
+  .edu-block-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--steel);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .edu-block-body {
+    font-size: 14px;
+    color: var(--slate);
+    line-height: 1.6;
+  }
+
+  /* ── VIAL BADGES (education) ─────────────────────────────── */
+  .vial-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+  .vial-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+  .vial-badge .vial-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .vial-badge.vb-available { background: var(--green-soft); color: var(--green); }
+  .vial-badge.vb-available .vial-dot { background: var(--green); }
+  .vial-badge.vb-out { background: var(--red-soft); color: var(--red); }
+  .vial-badge.vb-out .vial-dot { background: var(--red); }
+  .vial-badge.vb-coming { background: var(--amber-soft); color: var(--amber); }
+  .vial-badge.vb-coming .vial-dot { background: var(--amber); }
+
+  /* ── MODAL ───────────────────────────────────────────────── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 58, 92, 0.55);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 1000;
+    padding: 40px 20px;
+    overflow-y: auto;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal {
+    background: var(--card);
+    border-radius: var(--radius);
+    max-width: 720px;
+    width: 100%;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    margin: auto 0;
+  }
+  .modal-head {
+    padding: 22px 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .modal-head h2 {
+    color: var(--navy);
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .modal-head .modal-strength {
+    color: var(--mid-gray);
+    font-size: 13px;
+    margin-top: 2px;
+  }
+  .modal-close {
+    background: transparent;
+    border: none;
+    color: var(--mid-gray);
+    font-size: 24px;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    line-height: 1;
+  }
+  .modal-close:hover { color: var(--navy); background: var(--ice); }
+  .modal-body {
+    padding: 24px 28px 28px;
+  }
+
+  /* ── ADMIN ───────────────────────────────────────────────── */
+  .admin-trigger {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--mid-gray);
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .admin-trigger:hover { color: var(--navy); border-color: var(--steel); }
+
+  .admin-toolbar {
+    background: var(--navy);
+    color: #fff;
+    padding: 10px 32px;
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    gap: 12px;
+  }
+  .admin-toolbar.show { display: flex; }
+  .admin-toolbar .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); display: inline-block;
+    margin-right: 8px; box-shadow: 0 0 0 3px rgba(22,163,74,0.2);
+  }
+  .admin-toolbar button {
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    font-family: inherit;
+    margin-left: 8px;
+  }
+  .admin-toolbar button:hover { background: rgba(255,255,255,0.2); }
+
+  .admin-edit-tag {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--navy);
+    color: #fff;
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    display: none;
+    font-family: inherit;
+  }
+  body.admin-mode .admin-edit-tag { display: block; }
+  body.admin-mode .card { padding-top: 32px; }
+
+  .editable-text {
+    border: 1px dashed transparent;
+    border-radius: 6px;
+    padding: 2px 4px;
+    transition: all 0.15s ease;
+  }
+  body.admin-mode .editable-text {
+    border-color: var(--border);
+    cursor: text;
+    background: rgba(255,255,255,0.6);
+  }
+  body.admin-mode .editable-text:hover { border-color: var(--steel); }
+  body.admin-mode .editable-text:focus {
+    outline: none;
+    border-color: var(--steel);
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(46,122,181,0.15);
+  }
+
+  /* ── FORM ────────────────────────────────────────────────── */
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+  .form-row label {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .form-row input,
+  .form-row select,
+  .form-row textarea {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: #fff;
+    color: var(--slate);
+    transition: all 0.15s ease;
+    width: 100%;
+  }
+  .form-row textarea {
+    min-height: 80px;
+    resize: vertical;
+    line-height: 1.5;
+  }
+  .form-row input:focus,
+  .form-row select:focus,
+  .form-row textarea:focus {
+    outline: none;
+    border-color: var(--steel);
+    box-shadow: 0 0 0 3px rgba(46,122,181,0.15);
+  }
+  .form-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  /* ── PDF VIEWER ──────────────────────────────────────────── */
+  .pdf-frame {
+    width: 100%;
+    height: 80vh;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--ice);
+  }
+  .pdf-missing {
+    background: var(--ice);
+    color: var(--mid-gray);
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: var(--radius-sm);
+    border: 1px dashed var(--border);
+  }
+  .pdf-missing strong { color: var(--navy); display: block; margin-bottom: 4px; }
+
+  /* ── PDF UPLOAD ─────────────────────────────────────────── */
+  .upload-zone {
+    border: 2px dashed var(--border);
+    border-radius: var(--radius-sm);
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: var(--ice);
+    margin-bottom: 16px;
+  }
+  .upload-zone:hover, .upload-zone.drag-over {
+    border-color: var(--steel);
+    background: var(--silver);
+  }
+  .upload-zone .uz-icon { font-size: 28px; margin-bottom: 6px; }
+  .upload-zone .uz-label { font-size: 14px; font-weight: 500; color: var(--navy); }
+  .upload-zone .uz-sub { font-size: 12px; color: var(--mid-gray); margin-top: 2px; }
+
+  .bulk-result-row {
+    font-size: 13px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .bulk-result-row select {
+    font-size: 12px;
+    padding: 5px 8px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    font-family: inherit;
+    background: #fff;
+  }
+  .pdf-indicator {
+    display: inline-block;
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .pdf-indicator.stored { background: var(--green); box-shadow: 0 0 0 2px var(--green-soft); }
+  .pdf-indicator.missing { background: var(--amber); box-shadow: 0 0 0 2px var(--amber-soft); }
+  .pdf-upload-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-top: 6px;
+  }
+  .pdf-status-tag {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+  .pdf-status-tag.uploaded { background: var(--green-soft); color: var(--green); }
+  .pdf-status-tag.none { background: var(--ice); color: var(--mid-gray); }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  .site-footer {
+    border-top: 1px solid var(--border);
+    background: var(--card);
+    padding: 28px 32px;
+    margin-top: 60px;
+    text-align: center;
+    color: var(--mid-gray);
+    font-size: 12px;
+  }
+  .site-footer .footer-brand {
+    color: var(--navy);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    margin-bottom: 4px;
+  }
+  .site-footer .footer-tag {
+    color: var(--steel);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 10px;
+    margin-bottom: 12px;
+  }
+
+  /* ── MOBILE ──────────────────────────────────────────────── */
+  @media (max-width: 700px) {
+    .topbar { padding: 14px 18px; }
+    .tabs { padding: 0 18px; }
+    .page { padding: 18px 18px 60px; }
+    .hero { padding: 24px 22px; }
+    .hero h1 { font-size: 22px; }
+    .email-pill { padding: 6px 10px; font-size: 12px; }
+    .brand-name { font-size: 14px; }
+    .modal-head, .modal-body { padding-left: 20px; padding-right: 20px; }
+    .form-grid-2 { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ADMIN TOOLBAR (hidden until login) -->
+<div class="admin-toolbar" id="adminToolbar">
+  <div><span class="dot"></span><strong>Admin Mode</strong> — Click any value to edit. Changes save automatically to this browser.</div>
+  <div>
+    <button onclick="openSiteTextEditor()">Edit Site Text</button>
+    <button onclick="openBundleAdder()">Add Bundle</button>
+    <button onclick="openAddProduct()">Add Product</button>
+    <button onclick="openBulkPdfUpload()">Upload PDFs</button>
+    <button onclick="openAdminSettings()">Settings</button>
+    <button onclick="exportData()">Export</button>
+    <button onclick="importData()">Import</button>
+    <button onclick="exitAdmin()">Exit</button>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">SP</div>
+      <div class="brand-text">
+        <div class="brand-name">STRAIGHT PEPTIDES</div>
+        <div class="brand-tag">True in Health · Unlocking Human Potential</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <a href="mailto:straightpeptides@gmail.com" class="email-pill">straightpeptides@gmail.com</a>
+      <button class="admin-trigger" onclick="openAdminLogin()">Admin</button>
+    </div>
+  </div>
+</header>
+
+<!-- TABS -->
+<nav class="tabs" id="tabs">
+  <button class="tab active" data-tab="peptides">Peptides</button>
+  <button class="tab" data-tab="supplies">Supplies</button>
+  <button class="tab" data-tab="bundles">Bundles</button>
+  <button class="tab" data-tab="education">Education Center</button>
+</nav>
+
+<main class="page">
+
+  <!-- PEPTIDES PANEL -->
+  <section class="panel active" id="panel-peptides">
+    <div class="hero">
+      <h1 id="hero-headline-display">Research-grade peptides. Clinical precision.</h1>
+      <p id="hero-subline-display">Every vial ships with a Straight Peptides reconstitution and dosing guide. Open any product below to view its full guide, dosage math, and what to expect.</p>
+    </div>
+
+    <div class="section-head">
+      <div>
+        <div class="section-title">Available Peptides</div>
+        <div class="section-sub">Tap any product to view its full guide and education page.</div>
+      </div>
+    </div>
+    <div class="grid" id="product-grid"></div>
+
+    <div class="cta-banner">
+      <p id="contact-cta-display">Have questions about products, pricing, or kits? <strong>Email the owner of Straight Peptides.</strong></p>
+      <a href="mailto:straightpeptides@gmail.com" class="email-btn">Email Us</a>
+    </div>
+  </section>
+
+  <!-- SUPPLIES PANEL -->
+  <section class="panel" id="panel-supplies">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Supplies</div>
+        <div class="section-sub">Everything you need to reconstitute and inject.</div>
+      </div>
+    </div>
+    <div class="grid" id="supplies-grid"></div>
+  </section>
+
+  <!-- BUNDLES PANEL -->
+  <section class="panel" id="panel-bundles">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Bundles</div>
+        <div class="section-sub">Curated multi-peptide stacks. Open any bundle for details.</div>
+      </div>
+    </div>
+    <div id="bundles-area"></div>
+  </section>
+
+  <!-- EDUCATION PANEL -->
+  <section class="panel" id="panel-education">
+    <div class="section-head">
+      <div>
+        <div class="section-title">Education Center</div>
+        <div class="section-sub">What each peptide is, what it does, what to expect, and how to manage side effects.</div>
+      </div>
+    </div>
+    <div class="form-row" style="max-width: 420px;">
+      <input type="text" id="edu-search" placeholder="Search peptides…" oninput="renderEducation()">
+    </div>
+    <div id="education-list"></div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-brand">STRAIGHT PEPTIDES</div>
+  <div class="footer-tag">True in Health · Unlocking Human Potential</div>
+  <div>straightpeptides@gmail.com</div>
+  <div style="margin-top:10px; font-size:11px;">For research and educational purposes only. Not intended to diagnose, treat, cure, or prevent any disease.</div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-head">
+      <div>
+        <h2 id="modal-title"></h2>
+        <div class="modal-strength" id="modal-strength"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">×</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<script>
+/* ── DATA ─────────────────────────────────────────────────────── */
+const STORAGE_KEY = 'sp_site_data_v3';
+const ADMIN_KEY   = 'sp_admin_pw_v1';
+const DEFAULT_ADMIN_PW = '0624';
+
+const DEFAULT_DATA = {
+  texts: {
+    heroHeadline: "Research-grade peptides. Clinical precision.",
+    heroSubline:  "Every vial ships with a Straight Peptides reconstitution and dosing guide. Open any product below to view its full guide, dosage math, and what to expect.",
+    contactCTA: "Have questions about products, pricing, or kits? Email the owner of Straight Peptides."
+  },
+  products: [
+    {
+      id: "tirz_10", name: "Tirzepatide", strength: "10mg",
+      status: "available", pdf: "Tirzepatide_10mg_SP_Formatted.pdf",
+      whatIs: "A dual GIP and GLP-1 receptor agonist peptide.",
+      whatDoes: "Slows gastric emptying, reduces appetite, increases insulin sensitivity, and supports significant fat loss when paired with a structured protocol.",
+      whatExpect: "Weeks 1–2: drop in water weight and inflammation. Weeks 3+: food noise quiets, you feel full faster on smaller portions. Progressive fat loss over 12+ weeks.",
+      sideEffects: "Nausea, constipation, fatigue, mild GI discomfort, early dehydration.",
+      mitigation: "Daily fiber (fruits and vegetables), nearly double your previous water intake, daily electrolytes, light walking, eat slowly and stop when full. Titrate slowly — do not jump doses."
+    },
+    {
+      id: "tirz_20", name: "Tirzepatide", strength: "20mg",
+      status: "available", pdf: "Tirzepatide_20mg_SP_Formatted.pdf",
+      whatIs: "A dual GIP and GLP-1 receptor agonist peptide — the 20mg vial supports higher maintenance doses.",
+      whatDoes: "Slows gastric emptying, reduces appetite, increases insulin sensitivity, and supports significant fat loss when paired with a structured protocol.",
+      whatExpect: "Weeks 1–2: drop in water weight and inflammation. Weeks 3+: food noise quiets, you feel full faster on smaller portions. Progressive fat loss over 12+ weeks.",
+      sideEffects: "Nausea, constipation, fatigue, mild GI discomfort, early dehydration. Side effects can intensify at higher doses.",
+      mitigation: "Daily fiber, double your water, daily electrolytes, walking, slow eating. Titrate every 4 weeks minimum — do not jump from 10mg to 15mg without holding intermediate doses."
+    },
+    {
+      id: "tirz_30", name: "Tirzepatide", strength: "30mg",
+      status: "available", pdf: "Tirzepatide_30mg_SP_Formatted.pdf",
+      whatIs: "A dual GIP and GLP-1 receptor agonist peptide — the 30mg vial supports the highest maintenance and titration doses.",
+      whatDoes: "Slows gastric emptying, reduces appetite, increases insulin sensitivity, and supports significant fat loss when paired with a structured protocol.",
+      whatExpect: "Weeks 1–2: drop in water weight and inflammation. Weeks 3+: food noise quiets, you feel full faster on smaller portions. Progressive fat loss over 12+ weeks.",
+      sideEffects: "Nausea, constipation, fatigue, mild GI discomfort, dehydration. Higher doses amplify GI side effects.",
+      mitigation: "Daily fiber, double your water, daily electrolytes, walking, slow eating. Hold each dose for at least 4 weeks before titrating up. Never skip the titration schedule."
+    },
+    {
+      id: "tesa_10", name: "Tesamorelin", strength: "10mg",
+      status: "out-of-stock", pdf: "Tesamorelin_10mg_SP_Formatted.pdf",
+      whatIs: "A growth hormone-releasing hormone (GHRH) analogue.",
+      whatDoes: "Stimulates the pituitary to release growth hormone naturally. Particularly effective at reducing visceral abdominal fat.",
+      whatExpect: "Deeper sleep within 1–2 weeks. Faster recovery. Visible waistline reduction by weeks 4–12. Improved lean-to-fat ratio.",
+      sideEffects: "Mild water retention early on, injection site redness, occasional joint stiffness, possible mild blood sugar elevation in sensitive individuals.",
+      mitigation: "Inject fasted — morning before breakfast or 2–3 hours after last meal. Avoid carbs and fats for 60–90 minutes around injection. Monitor blood glucose if you are pre-diabetic. Stay hydrated."
+    },
+    {
+      id: "tesa_20", name: "Tesamorelin", strength: "20mg",
+      status: "out-of-stock", pdf: "",
+      whatIs: "A growth hormone-releasing hormone (GHRH) analogue — the 20mg vial supports longer protocols at standard dosing.",
+      whatDoes: "Stimulates the pituitary to release growth hormone naturally. Particularly effective at reducing visceral abdominal fat.",
+      whatExpect: "Deeper sleep within 1–2 weeks. Faster recovery. Visible waistline reduction by weeks 4–12. Improved lean-to-fat ratio.",
+      sideEffects: "Mild water retention, injection site redness, occasional joint stiffness, possible mild blood sugar elevation.",
+      mitigation: "Inject fasted — morning or 2–3 hours after last meal. Avoid carbs/fats around injection. Monitor blood glucose if pre-diabetic. Hydrate."
+    },
+    {
+      id: "reta_10", name: "Retatrutide", strength: "10mg",
+      status: "available", pdf: "Retatrutide_10mg_SP_Formatted.pdf",
+      whatIs: "A triple agonist of GIP, GLP-1, and glucagon receptors.",
+      whatDoes: "One of the most potent body composition compounds currently in research. Reduces appetite, increases metabolic rate, and drives significant visceral fat reduction.",
+      whatExpect: "Reduced cravings within 1–2 weeks. Significant fat loss starting around week 4. Improved fasting glucose and insulin sensitivity. Preserved lean mass when protein intake is adequate.",
+      sideEffects: "Nausea (more pronounced than Tirzepatide), fatigue, lightheadedness, possible heart rate elevation, GI discomfort.",
+      mitigation: "Titrate slowly — every 2–4 weeks. Electrolytes daily. Prioritize 0.5g protein per pound of body weight. Hydrate heavily. Do not stack with other GLP-1 agonists."
+    },
+    {
+      id: "reta_20", name: "Retatrutide", strength: "20mg",
+      status: "available", pdf: "Retatrutide_20mg_SP_Formatted.pdf",
+      whatIs: "A triple agonist of GIP, GLP-1, and glucagon receptors — the 20mg vial supports mid-protocol titration.",
+      whatDoes: "Reduces appetite, increases metabolic rate, and drives visceral fat reduction through three pathways simultaneously.",
+      whatExpect: "Reduced cravings within 1–2 weeks. Significant fat loss starting around week 4. Improved fasting glucose and insulin sensitivity.",
+      sideEffects: "Nausea, fatigue, lightheadedness, possible heart rate elevation, GI discomfort. Intensifies at higher doses.",
+      mitigation: "Titrate every 2–4 weeks. Electrolytes, protein, hydration. Do not stack with other GLP-1s. Do not jump doses."
+    },
+    {
+      id: "reta_30", name: "Retatrutide", strength: "30mg",
+      status: "available", pdf: "Retatrutide_30mg_SP_Formatted.pdf",
+      whatIs: "A triple agonist of GIP, GLP-1, and glucagon receptors — the 30mg vial supports the longest and highest-dose protocols.",
+      whatDoes: "Reduces appetite, increases metabolic rate, and drives visceral fat reduction through three pathways simultaneously.",
+      whatExpect: "Reduced cravings within 1–2 weeks. Significant fat loss starting around week 4. Improved fasting glucose and insulin sensitivity.",
+      sideEffects: "Nausea, fatigue, lightheadedness, possible heart rate elevation, GI discomfort. Higher doses amplify side effects.",
+      mitigation: "Slow titration every 2–4 weeks. Electrolytes, protein, hydration. Do not stack with other GLP-1s. Never jump doses."
+    },
+    {
+      id: "nad_1000", name: "NAD+", strength: "1000mg",
+      status: "available", pdf: "NAD_1000mg_SP_Formatted.pdf",
+      whatIs: "Nicotinamide adenine dinucleotide — a coenzyme essential for cellular energy and DNA repair.",
+      whatDoes: "Supports mitochondrial function, activates sirtuins (longevity enzymes), and improves cellular metabolism. SubQ administration bypasses GI degradation.",
+      whatExpect: "Sustained daytime energy and improved focus within 1–2 weeks. Better sleep, faster recovery, improved skin quality over 4–12 weeks.",
+      sideEffects: "Stinging, warming, or flushing sensation at the injection site is the most common reaction — normal and temporary. Occasional mild nausea at higher doses.",
+      mitigation: "Inject slowly to reduce the sting. Start with a loading phase of 200mg daily for 1–2 weeks, then drop to 100–150mg maintenance. Inject in the morning for the energy benefit."
+    },
+    {
+      id: "glow_70", name: "Glow", strength: "70mg (GHK-Cu 50mg · BPC-157 10mg · TB-500 10mg)",
+      status: "available", pdf: "Glow_70mg_SP_Formatted.pdf",
+      whatIs: "A three-peptide blend for skin quality, recovery, and tissue repair.",
+      whatDoes: "GHK-Cu drives collagen synthesis and skin remodeling. BPC-157 supports tissue, tendon, and gut repair. TB-500 promotes cell migration and reduces inflammation.",
+      whatExpect: "Smoother, more hydrated skin within 2–3 weeks. Faster healing of minor injuries. Improved hair and nail growth. Visibly firmer skin by week 8.",
+      sideEffects: "Mild injection site irritation, rare nausea, possible temporary fatigue early in protocol.",
+      mitigation: "Store in a dark place — GHK-Cu is light-sensitive. Inject SubQ near a target area for localized recovery. Rotate between abdomen and thigh for systemic skin benefits. Do not shake the vial."
+    },
+    {
+      id: "cjc_ipa", name: "CJC-1295 + Ipamorelin", strength: "5mg / 5mg — NO DAC",
+      status: "available", pdf: "CJC-1295_Ipamorelin_5mg5mg_SP_Formatted.pdf",
+      whatIs: "A pre-blended vial of CJC-1295 (No DAC), a GHRH analogue, plus Ipamorelin, a selective GHRP.",
+      whatDoes: "Amplifies your natural growth hormone pulses without disrupting the normal GH rhythm. Supports recovery, fat loss, sleep, and lean mass.",
+      whatExpect: "Deeper sleep within the first week — usually the first noticeable effect. Faster training recovery, improved muscle fullness, fat loss over 6–12 weeks.",
+      sideEffects: "Mild head rush or facial flush immediately after injection (Ipamorelin’s mechanism), occasional tingling, mild water retention.",
+      mitigation: "Inject fasted, 60–90 minutes before food. Avoid carbs and fats around injection. Pre-bed dose works well for sleep and recovery. 1–3 injections daily depending on protocol."
+    },
+    {
+      id: "cagri_5", name: "Cagrilintide", strength: "5mg",
+      status: "available", pdf: "Cagrilintide_5mg_SP_Formatted.pdf",
+      whatIs: "A long-acting amylin analogue that mimics the body’s natural satiety hormone.",
+      whatDoes: "Reduces appetite, slows gastric emptying, and supports weight management. Often stacked with Semaglutide or Tirzepatide for enhanced fat loss.",
+      whatExpect: "Reduced hunger and cravings within 2–3 weeks. Improved fullness from smaller meals. Best results when paired with a GLP-1 agonist.",
+      sideEffects: "Nausea (especially during titration), mild fatigue, occasional GI discomfort. Long half-life means effects accumulate if you titrate too fast.",
+      mitigation: "Slow titration is non-negotiable. Stay at 0.5mg weekly for 4 weeks before increasing. Hydrate, eat fiber, and do not skip the titration schedule."
+    },
+    {
+      id: "bpc_10", name: "BPC-157", strength: "10mg",
+      status: "available", pdf: "BPC-157_10mg_SP_Formatted.pdf",
+      whatIs: "A pentadecapeptide derived from a gastric protective protein.",
+      whatDoes: "Accelerates tendon, ligament, and soft-tissue repair. Supports gut lining integrity. Reduces inflammation through angiogenesis and growth factor expression.",
+      whatExpect: "Reduced joint and tendon inflammation within 1–2 weeks. Improved gut comfort and digestion. Accelerated injury healing over 4–6 weeks.",
+      sideEffects: "Minimal — occasional injection site soreness, mild dizziness in some users, possible mild nausea.",
+      mitigation: "For specific injuries, inject SubQ near the target tissue. For gut healing, inject in the abdomen. Cycle 4–6 weeks on, 2–4 weeks off. Pairs well with TB-500 for acute injuries."
+    },
+    {
+      id: "igf_1", name: "IGF-1 LR3", strength: "1mg",
+      status: "available", pdf: "IGF1_LR3_1mg_SP_Formatted.pdf",
+      whatIs: "A modified insulin-like growth factor with an extended half-life (20–30 hours).",
+      whatDoes: "Promotes muscle hyperplasia (new muscle cell formation), enhances recovery, and supports fat metabolism through direct tissue-level signaling.",
+      whatExpect: "Muscle fullness and improved training pumps within 1–2 weeks. Faster recovery between sessions. New muscle cell formation and improved body composition over a 4-week cycle.",
+      sideEffects: "Hypoglycemia (low blood sugar) is the most important side effect to monitor. Possible numbness in hands or feet at high doses, mild headaches.",
+      mitigation: "Eat a small carb source within 30 minutes of injection. Do not exceed recommended research doses. Cycle 4 weeks on, 4 weeks off to maintain receptor sensitivity. Do not stack with insulin without medical guidance."
+    }
+  ],
+  supplies: [
+    { id: "bac_3", name: "Bacteriostatic Water", spec: "3 mL multi-dose vial" },
+    { id: "syr_easy", name: "Easy Touch Insulin Syringe", spec: "1/2 CC · 31G x 5/16\" · 10-pack" },
+    { id: "alc_pads", name: "Alcohol Pads", spec: "Sterile · Individually wrapped" }
+  ],
+  bundles: []
+};
+
+/* ── STATE ────────────────────────────────────────────────────── */
+let data = loadData();
+let adminMode = false;
+let currentEditId = null;
+let _activeBlobUrl = null;
+
+function loadData() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return JSON.parse(JSON.stringify(DEFAULT_DATA));
+    const parsed = JSON.parse(raw);
+    return {
+      texts:    { ...DEFAULT_DATA.texts, ...(parsed.texts || {}) },
+      products: parsed.products || DEFAULT_DATA.products,
+      supplies: parsed.supplies || DEFAULT_DATA.supplies,
+      bundles:  parsed.bundles  || []
+    };
+  } catch(e) {
+    console.warn('Failed to load saved data, using defaults:', e);
+    return JSON.parse(JSON.stringify(DEFAULT_DATA));
+  }
+}
+
+function saveData() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+  catch(e) { console.warn('Could not save changes to this browser: ' + e.message); }
+}
+
+function getAdminPassword() {
+  return localStorage.getItem(ADMIN_KEY) || DEFAULT_ADMIN_PW;
+}
+function setAdminPassword(pw) {
+  localStorage.setItem(ADMIN_KEY, pw);
+}
+
+/* ── ESCAPE HELPERS ───────────────────────────────────────────── */
+function esc(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+/* ── TAB ROUTING ──────────────────────────────────────────────── */
+document.querySelectorAll('#tabs .tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#tabs .tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    if (btn.dataset.tab === 'education') renderEducation();
+  });
+});
+
+/* ── STATUS BADGE ─────────────────────────────────────────────── */
+function statusBadge(status) {
+  const map = {
+    'available':    { cls: 'status-available', label: 'In Stock' },
+    'out-of-stock': { cls: 'status-out',       label: 'Out of Stock' },
+    'coming-soon':  { cls: 'status-coming',    label: 'Coming Soon' }
+  };
+  const s = map[status] || map['available'];
+  return '<span class="status-badge ' + s.cls + '">' + s.label + '</span>';
+}
+
+/* ── RENDER: PRODUCTS ─────────────────────────────────────────── */
+function renderProducts() {
+  const grid = document.getElementById('product-grid');
+  if (!data.products.length) {
+    grid.innerHTML = '<div class="empty-state"><h3>No products yet</h3><p>Add products from the admin toolbar.</p></div>';
+    return;
+  }
+  grid.innerHTML = data.products.map(function(p) {
+    return '<div class="card" data-id="' + esc(p.id) + '">' +
+      '<button class="admin-edit-tag" onclick="event.stopPropagation(); editProduct(\'' + esc(p.id) + '\')">Edit</button>' +
+      '<div class="card-head">' +
+        '<div>' +
+          '<div class="card-name">' + esc(p.name) + '</div>' +
+          '<div class="card-strength">' + esc(p.strength) + '</div>' +
+        '</div>' +
+      '</div>' +
+      statusBadge(p.status) +
+      '<div class="card-actions">' +
+        '<button class="btn btn-primary" onclick="openProductDetail(\'' + esc(p.id) + '\')">View Details</button>' +
+        (p.pdf ? '<span class="guide-btn-wrap" data-product-id="' + esc(p.id) + '"><button class="btn" onclick="openPdfViewer(\'' + esc(p.id) + '\')">Guide<span class="pdf-indicator missing"></span></button></span>' : '') +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+/* ── RENDER: SUPPLIES ─────────────────────────────────────────── */
+function renderSupplies() {
+  const grid = document.getElementById('supplies-grid');
+  if (!data.supplies.length) {
+    grid.innerHTML = '<div class="empty-state"><h3>No supplies yet</h3></div>';
+    return;
+  }
+  grid.innerHTML = data.supplies.map(function(s) {
+    return '<div class="card" data-id="' + esc(s.id) + '">' +
+      '<button class="admin-edit-tag" onclick="event.stopPropagation(); editSupply(\'' + esc(s.id) + '\')">Edit</button>' +
+      '<div class="card-head">' +
+        '<div>' +
+          '<div class="card-name">' + esc(s.name) + '</div>' +
+          '<div class="card-strength">' + esc(s.spec) + '</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+}
+
+/* ── RENDER: BUNDLES ──────────────────────────────────────────── */
+function renderBundles() {
+  const area = document.getElementById('bundles-area');
+  if (!data.bundles.length) {
+    area.innerHTML =
+      '<div class="empty-state">' +
+        '<h3>Bundles coming soon</h3>' +
+        '<p>Bundle lineup is being finalized. Check back, or email <strong style="color: var(--navy)">straightpeptides@gmail.com</strong> for current combos.</p>' +
+      '</div>';
+    return;
+  }
+  area.innerHTML = '<div class="grid">' + data.bundles.map(function(b) {
+    return '<div class="card" data-id="' + esc(b.id) + '">' +
+      '<button class="admin-edit-tag" onclick="event.stopPropagation(); editBundle(\'' + esc(b.id) + '\')">Edit</button>' +
+      '<div class="card-head">' +
+        '<div>' +
+          '<div class="card-name">' + esc(b.name) + '</div>' +
+          '<div class="card-strength">' + esc(b.contents || '') + '</div>' +
+        '</div>' +
+      '</div>' +
+      (b.description ? '<div style="font-size:13px;color:var(--slate);margin-top:10px;line-height:1.5;">' + esc(b.description) + '</div>' : '') +
+    '</div>';
+  }).join('') + '</div>';
+}
+
+/* ── RENDER: EDUCATION (consolidated by peptide name) ────────── */
+function renderEducation() {
+  var list = document.getElementById('education-list');
+  var q = (document.getElementById('edu-search').value || '').toLowerCase().trim();
+
+  // Group products by name, preserving insertion order
+  var groups = {};
+  var groupOrder = [];
+  data.products.forEach(function(p) {
+    if (!groups[p.name]) {
+      groups[p.name] = {
+        name: p.name,
+        variants: [],
+        whatIs: p.whatIs || '',
+        whatDoes: p.whatDoes || '',
+        whatExpect: p.whatExpect || '',
+        sideEffects: p.sideEffects || '',
+        mitigation: p.mitigation || ''
+      };
+      groupOrder.push(p.name);
+    }
+    groups[p.name].variants.push({
+      strength: p.strength,
+      status: p.status,
+      id: p.id,
+      pdf: p.pdf
+    });
+    // Use the longest (most comprehensive) version of each education field
+    var fields = ['whatIs','whatDoes','whatExpect','sideEffects','mitigation'];
+    fields.forEach(function(f) {
+      if ((p[f] || '').length > groups[p.name][f].length) {
+        groups[p.name][f] = p[f];
+      }
+    });
+  });
+
+  var filtered = groupOrder.map(function(name) { return groups[name]; }).filter(function(g) {
+    if (!q) return true;
+    var haystack = (g.name + ' ' + g.variants.map(function(v){return v.strength;}).join(' ') + ' ' + g.whatIs + ' ' + g.whatDoes).toLowerCase();
+    return haystack.indexOf(q) !== -1;
+  });
+
+  if (!filtered.length) {
+    list.innerHTML = '<div class="empty-state"><h3>No matches</h3><p>Try a different search term.</p></div>';
+    return;
+  }
+
+  list.innerHTML = filtered.map(function(g) {
+    // Build vial badges with status indicators
+    var vialBadges = g.variants.map(function(v) {
+      var cls = v.status === 'available' ? 'vb-available' : v.status === 'out-of-stock' ? 'vb-out' : 'vb-coming';
+      var label = v.status === 'available' ? 'In Stock' : v.status === 'out-of-stock' ? 'Out of Stock' : 'Coming Soon';
+      return '<span class="vial-badge ' + cls + '"><span class="vial-dot"></span>' + esc(v.strength) + ' — ' + label + '</span>';
+    }).join('');
+
+    // Collect PDFs from variants that have them
+    var pdfButtons = g.variants.filter(function(v) { return v.pdf; }).map(function(v) {
+      return '<button class="btn" style="flex:0 1 auto; padding:10px 16px;" onclick="openPdfViewer(\'' + esc(v.id) + '\')">' + esc(v.strength) + ' Guide</button>';
+    }).join(' ');
+
+    return '<div class="card" style="margin-bottom:14px; padding: 24px 26px;">' +
+      '<div style="margin-bottom:16px;">' +
+        '<div class="card-name" style="font-size:17px;">' + esc(g.name) + '</div>' +
+        '<div class="vial-badges">' + vialBadges + '</div>' +
+      '</div>' +
+      '<div class="edu-grid">' +
+        eduRow('What it is', g.whatIs) +
+        eduRow('What it does', g.whatDoes) +
+        eduRow('What to expect', g.whatExpect) +
+        eduRow('Side effects', g.sideEffects) +
+        eduRow('How to manage', g.mitigation) +
+      '</div>' +
+      (pdfButtons ? '<div style="margin-top:14px; display:flex; flex-wrap:wrap; gap:8px;">' + pdfButtons + '</div>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function eduRow(title, body) {
+  if (!body) return '';
+  return '<div class="edu-block">' +
+    '<div class="edu-block-title">' + esc(title) + '</div>' +
+    '<div class="edu-block-body">' + esc(body) + '</div>' +
+  '</div>';
+}
+
+/* ── RENDER: SITE TEXT ────────────────────────────────────────── */
+function renderSiteText() {
+  document.getElementById('hero-headline-display').textContent = data.texts.heroHeadline;
+  document.getElementById('hero-subline-display').textContent  = data.texts.heroSubline;
+  document.getElementById('contact-cta-display').innerHTML =
+    esc(data.texts.contactCTA).replace(/Email the owner of Straight Peptides/i,
+      '<strong>Email the owner of Straight Peptides.</strong>');
+}
+
+/* ── MASTER RENDER ────────────────────────────────────────────── */
+function renderAll() {
+  renderSiteText();
+  renderProducts();
+  renderSupplies();
+  renderBundles();
+  renderEducation();
+  updatePdfIndicators();
+}
+
+/* ── MODAL ────────────────────────────────────────────────────── */
+function openModal(title, strength, bodyHtml) {
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-strength').textContent = strength || '';
+  document.getElementById('modal-body').innerHTML = bodyHtml;
+  document.getElementById('modal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('show');
+  document.body.style.overflow = '';
+  // Clean up any active blob URL from PDF viewer
+  if (_activeBlobUrl) { URL.revokeObjectURL(_activeBlobUrl); _activeBlobUrl = null; }
+}
+document.getElementById('modal').addEventListener('click', function(e) {
+  if (e.target.id === 'modal') closeModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+
+function openProductDetail(id) {
+  var p = data.products.find(function(x) { return x.id === id; });
+  if (!p) return;
+  var html =
+    '<div style="margin-bottom:20px;">' + statusBadge(p.status) + '</div>' +
+    '<div class="edu-grid">' +
+      eduRow('What it is', p.whatIs) +
+      eduRow('What it does', p.whatDoes) +
+      eduRow('What to expect', p.whatExpect) +
+      eduRow('Side effects', p.sideEffects) +
+      eduRow('How to manage', p.mitigation) +
+    '</div>' +
+    '<div style="display:flex; gap:8px; margin-top:18px; flex-wrap: wrap;">' +
+      (p.pdf
+        ? '<button class="btn btn-primary" style="flex:0 1 auto; padding:11px 20px;" onclick="openPdfViewer(\'' + esc(p.id) + '\')">View Full Guide (PDF)</button>'
+        : '<div class="info-banner" style="margin:0; flex:1;"><strong>Guide coming soon.</strong> Email straightpeptides@gmail.com for protocol questions.</div>') +
+      '<a href="mailto:straightpeptides@gmail.com" class="btn" style="flex:0 1 auto; text-align:center; padding:11px 20px;">Email Us</a>' +
+    '</div>';
+  openModal(p.name, p.strength, html);
+}
+
+function openPdfViewer(id) {
+  openPdfViewerAsync(id);
+}
+
+/* ── ADMIN FLOW ───────────────────────────────────────────────── */
+function openAdminLogin() {
+  if (adminMode) { exitAdmin(); return; }
+  var pw = prompt('Admin password:');
+  if (pw === null) return;
+  if (pw === getAdminPassword()) {
+    enterAdmin();
+  } else {
+    alert('Incorrect password.');
+  }
+}
+function enterAdmin() {
+  adminMode = true;
+  document.body.classList.add('admin-mode');
+  document.getElementById('adminToolbar').classList.add('show');
+  attachInlineEditors();
+}
+function exitAdmin() {
+  adminMode = false;
+  document.body.classList.remove('admin-mode');
+  document.getElementById('adminToolbar').classList.remove('show');
+  detachInlineEditors();
+}
+
+function attachInlineEditors() {
+  var fields = [
+    { id: 'hero-headline-display', key: 'heroHeadline' },
+    { id: 'hero-subline-display',  key: 'heroSubline' }
+  ];
+  fields.forEach(function(f) {
+    var el = document.getElementById(f.id);
+    if (!el) return;
+    el.classList.add('editable-text');
+    el.contentEditable = 'true';
+    el.addEventListener('blur', function() {
+      data.texts[f.key] = el.textContent.trim();
+      saveData();
+    });
+  });
+}
+function detachInlineEditors() {
+  document.querySelectorAll('.editable-text').forEach(function(el) {
+    el.classList.remove('editable-text');
+    el.contentEditable = 'false';
+  });
+}
+
+/* ── EDIT FORMS ───────────────────────────────────────────────── */
+function editProduct(id) {
+  var p = data.products.find(function(x) { return x.id === id; });
+  if (!p) return;
+  currentEditId = id;
+  var html =
+    '<div class="form-grid-2">' +
+      '<div class="form-row"><label>Name</label><input id="f-name" value="' + esc(p.name) + '"></div>' +
+      '<div class="form-row"><label>Strength</label><input id="f-strength" value="' + esc(p.strength) + '"></div>' +
+    '</div>' +
+    '<div class="form-row"><label>Status</label>' +
+      '<select id="f-status">' +
+        '<option value="available"' + (p.status==='available'?' selected':'') + '>In Stock</option>' +
+        '<option value="out-of-stock"' + (p.status==='out-of-stock'?' selected':'') + '>Out of Stock</option>' +
+        '<option value="coming-soon"' + (p.status==='coming-soon'?' selected':'') + '>Coming Soon</option>' +
+      '</select>' +
+    '</div>' +
+    '<div class="form-row"><label>PDF Filename (must be in same folder)</label><input id="f-pdf" value="' + esc(p.pdf||'') + '" placeholder="ProductName_SP_Formatted.pdf">' +
+      '<div class="pdf-upload-row">' +
+        '<button type="button" class="btn" style="flex:0 1 auto; padding:7px 14px; font-size:12px;" onclick="triggerPdfUpload(\'' + esc(p.id) + '\')">Upload PDF</button>' +
+        '<input type="file" id="pdf-file-input-' + esc(p.id) + '" accept=".pdf" style="display:none" onchange="handlePdfFileSelect(this, \'' + esc(p.id) + '\')">' +
+        '<span id="pdf-upload-status"><span class="pdf-status-tag none">No file uploaded</span></span>' +
+      '</div>' +
+    '</div>' +
+    '<div class="form-row"><label>What it is</label><textarea id="f-whatIs">' + esc(p.whatIs||'') + '</textarea></div>' +
+    '<div class="form-row"><label>What it does</label><textarea id="f-whatDoes">' + esc(p.whatDoes||'') + '</textarea></div>' +
+    '<div class="form-row"><label>What to expect</label><textarea id="f-whatExpect">' + esc(p.whatExpect||'') + '</textarea></div>' +
+    '<div class="form-row"><label>Side effects</label><textarea id="f-sideEffects">' + esc(p.sideEffects||'') + '</textarea></div>' +
+    '<div class="form-row"><label>How to manage / mitigation</label><textarea id="f-mitigation">' + esc(p.mitigation||'') + '</textarea></div>' +
+    '<div class="form-actions">' +
+      '<button class="btn btn-danger" onclick="deleteProduct(\'' + esc(p.id) + '\')">Delete</button>' +
+      '<button class="btn" onclick="closeModal()">Cancel</button>' +
+      '<button class="btn btn-primary" onclick="saveProduct()">Save</button>' +
+    '</div>';
+  openModal('Edit Product', p.name + ' · ' + p.strength, html);
+  // Check if a PDF is already stored for this product
+  getPdfBlob(id).then(function(record) {
+    var statusEl = document.getElementById('pdf-upload-status');
+    if (statusEl && record && record.filename) {
+      statusEl.innerHTML = '<span class="pdf-status-tag uploaded">&#10003; ' + esc(record.filename) + ' stored</span>' +
+        ' <button class="btn btn-danger" style="font-size:11px; padding:3px 10px;" onclick="removePdf(\'' + esc(id) + '\')">Remove</button>';
+    }
+  }).catch(function() {});
+}
+function saveProduct() {
+  var p = data.products.find(function(x) { return x.id === currentEditId; });
+  if (!p) return;
+  p.name        = document.getElementById('f-name').value.trim();
+  p.strength    = document.getElementById('f-strength').value.trim();
+  p.status      = document.getElementById('f-status').value;
+  p.pdf         = document.getElementById('f-pdf').value.trim();
+  p.whatIs      = document.getElementById('f-whatIs').value.trim();
+  p.whatDoes    = document.getElementById('f-whatDoes').value.trim();
+  p.whatExpect  = document.getElementById('f-whatExpect').value.trim();
+  p.sideEffects = document.getElementById('f-sideEffects').value.trim();
+  p.mitigation  = document.getElementById('f-mitigation').value.trim();
+  saveData();
+  renderAll();
+  closeModal();
+}
+function deleteProduct(id) {
+  if (!confirm('Delete this product? This cannot be undone.')) return;
+  data.products = data.products.filter(function(x) { return x.id !== id; });
+  saveData();
+  renderAll();
+  closeModal();
+}
+
+function openAddProduct() {
+  var newId = 'prod_' + Math.floor(Math.random() * 1e9);
+  data.products.push({
+    id: newId, name: 'New Product', strength: '10mg',
+    status: 'available', pdf: '',
+    whatIs: '', whatDoes: '', whatExpect: '', sideEffects: '', mitigation: ''
+  });
+  saveData();
+  renderAll();
+  editProduct(newId);
+}
+
+function editSupply(id) {
+  var s = data.supplies.find(function(x) { return x.id === id; });
+  if (!s) return;
+  currentEditId = id;
+  var html =
+    '<div class="form-row"><label>Name</label><input id="f-name" value="' + esc(s.name) + '"></div>' +
+    '<div class="form-row"><label>Spec</label><input id="f-spec" value="' + esc(s.spec) + '"></div>' +
+    '<div class="form-actions">' +
+      '<button class="btn btn-danger" onclick="deleteSupply(\'' + esc(s.id) + '\')">Delete</button>' +
+      '<button class="btn" onclick="closeModal()">Cancel</button>' +
+      '<button class="btn btn-primary" onclick="saveSupply()">Save</button>' +
+    '</div>';
+  openModal('Edit Supply', s.name, html);
+}
+function saveSupply() {
+  var s = data.supplies.find(function(x) { return x.id === currentEditId; });
+  if (!s) return;
+  s.name = document.getElementById('f-name').value.trim();
+  s.spec = document.getElementById('f-spec').value.trim();
+  saveData();
+  renderAll();
+  closeModal();
+}
+function deleteSupply(id) {
+  if (!confirm('Delete this supply?')) return;
+  data.supplies = data.supplies.filter(function(x) { return x.id !== id; });
+  saveData();
+  renderAll();
+  closeModal();
+}
+
+function openBundleAdder() {
+  var newId = 'bundle_' + Math.floor(Math.random() * 1e9);
+  data.bundles.push({
+    id: newId, name: 'New Bundle', contents: '', description: ''
+  });
+  saveData();
+  renderAll();
+  editBundle(newId);
+  document.querySelectorAll('#tabs .tab').forEach(function(b) { b.classList.remove('active'); });
+  document.querySelectorAll('.panel').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelector('[data-tab="bundles"]').classList.add('active');
+  document.getElementById('panel-bundles').classList.add('active');
+}
+function editBundle(id) {
+  var b = data.bundles.find(function(x) { return x.id === id; });
+  if (!b) return;
+  currentEditId = id;
+  var html =
+    '<div class="form-row"><label>Bundle Name</label><input id="f-name" value="' + esc(b.name) + '"></div>' +
+    '<div class="form-row"><label>Contents (e.g. "Tirzepatide 10mg + Cagrilintide 5mg")</label><input id="f-contents" value="' + esc(b.contents||'') + '"></div>' +
+    '<div class="form-row"><label>Description</label><textarea id="f-description">' + esc(b.description||'') + '</textarea></div>' +
+    '<div class="form-actions">' +
+      '<button class="btn btn-danger" onclick="deleteBundle(\'' + esc(b.id) + '\')">Delete</button>' +
+      '<button class="btn" onclick="closeModal()">Cancel</button>' +
+      '<button class="btn btn-primary" onclick="saveBundle()">Save</button>' +
+    '</div>';
+  openModal('Edit Bundle', b.name, html);
+}
+function saveBundle() {
+  var b = data.bundles.find(function(x) { return x.id === currentEditId; });
+  if (!b) return;
+  b.name        = document.getElementById('f-name').value.trim();
+  b.contents    = document.getElementById('f-contents').value.trim();
+  b.description = document.getElementById('f-description').value.trim();
+  saveData();
+  renderAll();
+  closeModal();
+}
+function deleteBundle(id) {
+  if (!confirm('Delete this bundle?')) return;
+  data.bundles = data.bundles.filter(function(x) { return x.id !== id; });
+  saveData();
+  renderAll();
+  closeModal();
+}
+
+function openSiteTextEditor() {
+  var html =
+    '<div class="form-row"><label>Hero Headline</label><input id="f-heroHeadline" value="' + esc(data.texts.heroHeadline) + '"></div>' +
+    '<div class="form-row"><label>Hero Subline</label><textarea id="f-heroSubline">' + esc(data.texts.heroSubline) + '</textarea></div>' +
+    '<div class="form-row"><label>Contact CTA</label><textarea id="f-contactCTA">' + esc(data.texts.contactCTA) + '</textarea></div>' +
+    '<div class="form-actions">' +
+      '<button class="btn" onclick="closeModal()">Cancel</button>' +
+      '<button class="btn btn-primary" onclick="saveSiteText()">Save</button>' +
+    '</div>';
+  openModal('Edit Site Text', '', html);
+}
+function saveSiteText() {
+  data.texts.heroHeadline = document.getElementById('f-heroHeadline').value.trim();
+  data.texts.heroSubline  = document.getElementById('f-heroSubline').value.trim();
+  data.texts.contactCTA   = document.getElementById('f-contactCTA').value.trim();
+  saveData();
+  renderAll();
+  closeModal();
+}
+
+function openAdminSettings() {
+  var html =
+    '<div class="form-row"><label>Admin Password</label><input id="f-adminpw" type="text" value="' + esc(getAdminPassword()) + '" placeholder="Leave blank to keep current"></div>' +
+    '<div class="info-banner" style="margin:8px 0 16px;">Changes to the admin password are saved to this browser only.</div>' +
+    '<div class="form-row"><label>Danger Zone</label>' +
+      '<button class="btn btn-danger" onclick="resetAllData()">Reset all data to defaults</button>' +
+    '</div>' +
+    '<div class="form-actions">' +
+      '<button class="btn" onclick="closeModal()">Cancel</button>' +
+      '<button class="btn btn-primary" onclick="saveAdminSettings()">Save</button>' +
+    '</div>';
+  openModal('Admin Settings', '', html);
+}
+function saveAdminSettings() {
+  var newPw = document.getElementById('f-adminpw').value.trim();
+  if (newPw) setAdminPassword(newPw);
+  closeModal();
+  alert('Settings saved.');
+}
+function resetAllData() {
+  if (!confirm('This will erase all your edits and restore the default products and text. Continue?')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  data = loadData();
+  renderAll();
+  closeModal();
+  alert('Data reset to defaults.');
+}
+
+/* ── EXPORT / IMPORT ──────────────────────────────────────────── */
+function exportData() {
+  var payload = JSON.stringify(data, null, 2);
+  var blob = new Blob([payload], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'straight-peptides-backup.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+function importData() {
+  var input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'application/json,.json';
+  input.onchange = function(e) {
+    var f = e.target.files[0];
+    if (!f) return;
+    var reader = new FileReader();
+    reader.onload = function(ev) {
+      try {
+        var parsed = JSON.parse(ev.target.result);
+        if (!parsed.products || !parsed.supplies) throw new Error('Missing required fields.');
+        if (!confirm('Replace current site data with imported file?')) return;
+        data = parsed;
+        saveData();
+        renderAll();
+        alert('Import successful.');
+      } catch(err) {
+        alert('Could not import file: ' + err.message);
+      }
+    };
+    reader.readAsText(f);
+  };
+  input.click();
+}
+
+/* ── INDEXEDDB PDF STORAGE ────────────────────────────────────── */
+const PDF_DB_NAME = 'sp_pdf_store';
+const PDF_DB_VERSION = 1;
+const PDF_STORE = 'pdfs';
+let _pdfDb = null;
+
+function openPdfDB() {
+  if (_pdfDb) return Promise.resolve(_pdfDb);
+  return new Promise(function(resolve, reject) {
+    var req = indexedDB.open(PDF_DB_NAME, PDF_DB_VERSION);
+    req.onupgradeneeded = function(e) {
+      var db = e.target.result;
+      if (!db.objectStoreNames.contains(PDF_STORE)) {
+        db.createObjectStore(PDF_STORE, { keyPath: 'productId' });
+      }
+    };
+    req.onsuccess = function(e) {
+      _pdfDb = e.target.result;
+      resolve(_pdfDb);
+    };
+    req.onerror = function(e) {
+      console.warn('IndexedDB open error:', e);
+      reject(e);
+    };
+  });
+}
+
+function storePdf(productId, filename, blob) {
+  return openPdfDB().then(function(db) {
+    return new Promise(function(resolve, reject) {
+      var tx = db.transaction(PDF_STORE, 'readwrite');
+      tx.objectStore(PDF_STORE).put({ productId: productId, filename: filename, blob: blob, storedAt: Date.now() });
+      tx.oncomplete = function() { resolve(true); };
+      tx.onerror = function(e) { reject(e); };
+    });
+  });
+}
+
+function getPdfBlob(productId) {
+  return openPdfDB().then(function(db) {
+    return new Promise(function(resolve, reject) {
+      var tx = db.transaction(PDF_STORE, 'readonly');
+      var req = tx.objectStore(PDF_STORE).get(productId);
+      req.onsuccess = function() { resolve(req.result || null); };
+      req.onerror = function(e) { reject(e); };
+    });
+  });
+}
+
+function listStoredPdfs() {
+  return openPdfDB().then(function(db) {
+    return new Promise(function(resolve, reject) {
+      var tx = db.transaction(PDF_STORE, 'readonly');
+      var req = tx.objectStore(PDF_STORE).getAll();
+      req.onsuccess = function() { resolve(req.result || []); };
+      req.onerror = function(e) { reject(e); };
+    });
+  });
+}
+
+function deletePdf(productId) {
+  return openPdfDB().then(function(db) {
+    return new Promise(function(resolve, reject) {
+      var tx = db.transaction(PDF_STORE, 'readwrite');
+      tx.objectStore(PDF_STORE).delete(productId);
+      tx.oncomplete = function() { resolve(true); };
+      tx.onerror = function(e) { reject(e); };
+    });
+  });
+}
+
+/* ── BULK PDF UPLOAD ─────────────────────────────────────────── */
+var _bulkFiles = [];
+
+function openBulkPdfUpload() {
+  _bulkFiles = [];
+  var html =
+    '<div class="upload-zone" id="bulk-drop-zone" onclick="document.getElementById(\'bulk-file-input\').click()">' +
+      '<div class="uz-icon">&#128196;</div>' +
+      '<div class="uz-label">Drop PDF files here or click to browse</div>' +
+      '<div class="uz-sub">Files are matched to products by filename (e.g. Tirzepatide_10mg_SP_Formatted.pdf)</div>' +
+    '</div>' +
+    '<input type="file" id="bulk-file-input" accept=".pdf" multiple style="display:none" onchange="handleBulkFiles(this.files)">' +
+    '<div id="bulk-results"></div>' +
+    '<div class="form-actions" id="bulk-actions" style="display:none;">' +
+      '<button class="btn" onclick="closeModal()">Cancel</button>' +
+      '<button class="btn btn-primary" onclick="saveBulkPdfs()">Save All Matched</button>' +
+    '</div>';
+  openModal('Bulk PDF Upload', 'Auto-match PDFs to products', html);
+
+  // Set up drag-and-drop
+  setTimeout(function() {
+    var zone = document.getElementById('bulk-drop-zone');
+    if (!zone) return;
+    zone.addEventListener('dragover', function(e) { e.preventDefault(); zone.classList.add('drag-over'); });
+    zone.addEventListener('dragleave', function() { zone.classList.remove('drag-over'); });
+    zone.addEventListener('drop', function(e) {
+      e.preventDefault();
+      zone.classList.remove('drag-over');
+      var files = Array.from(e.dataTransfer.files).filter(function(f) { return f.type === 'application/pdf'; });
+      if (files.length) handleBulkFiles(files);
+    });
+  }, 50);
+}
+
+function handleBulkFiles(fileList) {
+  var files = Array.from(fileList);
+  _bulkFiles = files.map(function(f) {
+    var match = matchFileToProduct(f.name);
+    return { file: f, name: f.name, matchedId: match ? match.id : '', matchedLabel: match ? (match.name + ' ' + match.strength) : '' };
+  });
+  renderBulkResults();
+}
+
+function matchFileToProduct(filename) {
+  var lower = filename.toLowerCase().replace(/[_\-\s]+/g, ' ').replace('.pdf', '');
+  var best = null;
+  var bestScore = 0;
+  data.products.forEach(function(p) {
+    var pName = (p.name + ' ' + p.strength).toLowerCase().replace(/[_\-\s]+/g, ' ');
+    // Check if all significant words from the product appear in the filename
+    var words = pName.split(' ').filter(function(w) { return w.length > 1; });
+    var hits = words.filter(function(w) { return lower.indexOf(w) !== -1; }).length;
+    var score = hits / words.length;
+    if (score > bestScore && score >= 0.5) {
+      bestScore = score;
+      best = p;
+    }
+  });
+  return best;
+}
+
+function renderBulkResults() {
+  var area = document.getElementById('bulk-results');
+  var actions = document.getElementById('bulk-actions');
+  if (!_bulkFiles.length) { area.innerHTML = ''; actions.style.display = 'none'; return; }
+  actions.style.display = 'flex';
+
+  var productOptions = data.products.map(function(p) {
+    return '<option value="' + esc(p.id) + '">' + esc(p.name + ' — ' + p.strength) + '</option>';
+  }).join('');
+
+  area.innerHTML = _bulkFiles.map(function(bf, i) {
+    var statusIcon = bf.matchedId ? '&#9989;' : '&#10067;';
+    var statusLabel = bf.matchedId ? ('<span style="color:var(--green);font-weight:500;">' + esc(bf.matchedLabel) + '</span>') : '<span style="color:var(--amber);font-weight:500;">No match</span>';
+    return '<div class="bulk-result-row">' +
+      '<span>' + statusIcon + '</span>' +
+      '<span style="flex:1; font-weight:500;">' + esc(bf.name) + '</span>' +
+      '<span style="margin-right:4px;">&rarr;</span>' +
+      statusLabel +
+      (!bf.matchedId ? '<select onchange="assignBulkPdf(' + i + ', this.value)"><option value="">— Assign —</option>' + productOptions + '</select>' : '') +
+    '</div>';
+  }).join('');
+}
+
+function assignBulkPdf(index, productId) {
+  if (!productId) { _bulkFiles[index].matchedId = ''; _bulkFiles[index].matchedLabel = ''; }
+  else {
+    var p = data.products.find(function(x) { return x.id === productId; });
+    if (p) { _bulkFiles[index].matchedId = p.id; _bulkFiles[index].matchedLabel = p.name + ' ' + p.strength; }
+  }
+  renderBulkResults();
+}
+
+function saveBulkPdfs() {
+  var matched = _bulkFiles.filter(function(bf) { return bf.matchedId; });
+  if (!matched.length) { alert('No files matched to products yet.'); return; }
+  var count = 0;
+  var total = matched.length;
+  var saveBtn = document.querySelector('#bulk-actions .btn-primary');
+  if (saveBtn) { saveBtn.disabled = true; saveBtn.textContent = 'Saving…'; }
+
+  matched.forEach(function(bf) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var blob = new Blob([e.target.result], { type: 'application/pdf' });
+      storePdf(bf.matchedId, bf.name, blob).then(function() {
+        // Also update the product's pdf filename
+        var prod = data.products.find(function(x) { return x.id === bf.matchedId; });
+        if (prod) { prod.pdf = bf.name; saveData(); }
+        count++;
+        if (count >= total) {
+          renderAll();
+          updatePdfIndicators();
+          closeModal();
+          alert(total + ' PDF' + (total > 1 ? 's' : '') + ' saved successfully.');
+        }
+      });
+    };
+    reader.readAsArrayBuffer(bf.file);
+  });
+}
+
+/* ── INDIVIDUAL PDF UPLOAD (in product edit) ─────────────────── */
+function triggerPdfUpload(productId) {
+  var input = document.getElementById('pdf-file-input-' + productId);
+  if (input) input.click();
+}
+
+function handlePdfFileSelect(input, productId) {
+  var file = input.files[0];
+  if (!file) return;
+  var statusEl = document.getElementById('pdf-upload-status');
+  if (statusEl) statusEl.innerHTML = '<span class="pdf-status-tag uploaded">Uploading…</span>';
+
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var blob = new Blob([e.target.result], { type: 'application/pdf' });
+    storePdf(productId, file.name, blob).then(function() {
+      // Update filename field
+      var filenameInput = document.getElementById('f-pdf');
+      if (filenameInput) filenameInput.value = file.name;
+      if (statusEl) statusEl.innerHTML = '<span class="pdf-status-tag uploaded">&#10003; ' + esc(file.name) + ' stored</span>';
+    });
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function removePdf(productId) {
+  if (!confirm('Remove the stored PDF for this product?')) return;
+  deletePdf(productId).then(function() {
+    var statusEl = document.getElementById('pdf-upload-status');
+    if (statusEl) statusEl.innerHTML = '<span class="pdf-status-tag none">No file uploaded</span>';
+    updatePdfIndicators();
+  });
+}
+
+/* ── PDF VIEWER (async, checks IndexedDB first) ─────────────── */
+function openPdfViewerAsync(id) {
+  var p = data.products.find(function(x) { return x.id === id; });
+  if (!p) return;
+
+  // Show loading state
+  openModal(p.name + ' — Product Guide', p.strength,
+    '<div style="text-align:center; padding:40px; color:var(--mid-gray);">Loading PDF…</div>');
+
+  getPdfBlob(id).then(function(record) {
+    if (record && record.blob) {
+      // Clean up any previous blob URL
+      if (_activeBlobUrl) { URL.revokeObjectURL(_activeBlobUrl); _activeBlobUrl = null; }
+      _activeBlobUrl = URL.createObjectURL(record.blob);
+      var html =
+        '<iframe class="pdf-frame" src="' + _activeBlobUrl + '" title="' + esc(p.name) + ' ' + esc(p.strength) + ' Guide"></iframe>' +
+        '<div style="margin-top:10px; font-size:12px; color: var(--mid-gray);">PDF loaded from stored upload.</div>';
+      document.getElementById('modal-body').innerHTML = html;
+    } else if (p.pdf) {
+      // Fallback to file path
+      var html =
+        '<iframe class="pdf-frame" src="' + esc(p.pdf) + '" title="' + esc(p.name) + ' ' + esc(p.strength) + ' Guide"></iframe>' +
+        '<div style="margin-top:10px; font-size:12px; color: var(--mid-gray);">If the PDF does not display, <a href="' + esc(p.pdf) + '" target="_blank">open it in a new tab</a>.</div>';
+      document.getElementById('modal-body').innerHTML = html;
+    } else {
+      document.getElementById('modal-body').innerHTML =
+        '<div class="pdf-missing"><strong>Guide not yet available</strong>This product\'s guide is being prepared. Email straightpeptides@gmail.com for protocol questions in the meantime.</div>';
+    }
+  }).catch(function() {
+    // IndexedDB failed, fall back to filename
+    if (p.pdf) {
+      document.getElementById('modal-body').innerHTML =
+        '<iframe class="pdf-frame" src="' + esc(p.pdf) + '" title="' + esc(p.name) + ' ' + esc(p.strength) + ' Guide"></iframe>';
+    } else {
+      document.getElementById('modal-body').innerHTML =
+        '<div class="pdf-missing"><strong>Guide not yet available</strong>Email straightpeptides@gmail.com for protocol questions.</div>';
+    }
+  });
+}
+
+/* ── PDF INDICATORS ──────────────────────────────────────────── */
+function updatePdfIndicators() {
+  listStoredPdfs().then(function(stored) {
+    var storedIds = {};
+    stored.forEach(function(r) { storedIds[r.productId] = true; });
+    document.querySelectorAll('.guide-btn-wrap').forEach(function(wrap) {
+      var id = wrap.dataset.productId;
+      var dot = wrap.querySelector('.pdf-indicator');
+      if (dot) {
+        if (storedIds[id]) { dot.className = 'pdf-indicator stored'; dot.title = 'PDF stored'; }
+        else { dot.className = 'pdf-indicator missing'; dot.title = 'No PDF uploaded'; }
+      }
+    });
+  }).catch(function() {});
+}
+
+/* ── INIT ─────────────────────────────────────────────────────── */
+renderAll();
+</script>
+</body>
+</html>
